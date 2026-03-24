@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghostwriter — Автор-привид</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white: #ffffff;
+  --off: #f5f5f7;
+  --mid: #d2d2d7;
+  --text: #1d1d1f;
+  --text2: #6e6e73;
+  --text3: #86868b;
+  --blue: #0071e3;
+  --blue-h: #0077ed;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav-inner {
+  max-width: 980px; margin: 0 auto;
+  padding: 0 22px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.3px;
+}
+
+.nav-key {
+  font-size: 13px; color: var(--blue);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+}
+.nav-key:hover { text-decoration: underline; }
+
+.hero {
+  text-align: center; padding: 90px 22px 70px;
+  max-width: 760px; margin: 0 auto;
+  animation: up 0.7s ease both;
+}
+
+@keyframes up {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.eyebrow {
+  font-size: 13px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px,7vw,72px); font-weight: 700;
+  line-height: 1.05; letter-spacing: -1.5px; color: var(--text); margin-bottom: 18px;
+}
+
+.hero-title em { font-style: italic; color: var(--text2); }
+
+.hero-sub {
+  font-size: 19px; line-height: 1.5; color: var(--text2);
+  font-weight: 300; letter-spacing: -0.2px;
+}
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+
+.card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; overflow: hidden; margin-bottom: 16px;
+  transition: box-shadow .3s;
+}
+.card:hover { box-shadow: 0 8px 40px rgba(0,0,0,.08); }
+
+.sec { padding: 28px 32px; border-bottom: 1px solid var(--off); }
+.sec:last-child { border-bottom: none; }
+
+.sec-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 16px;
+}
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13px; font-weight: 500; color: var(--text2); }
+
+.field input, .field select {
+  background: var(--off); border: none; border-radius: 10px;
+  padding: 11px 14px; font-size: 15px; color: var(--text);
+  font-family: inherit; outline: none;
+  transition: background .2s, box-shadow .2s;
+  -webkit-appearance: none; appearance: none; width: 100%;
+}
+
+.field input:focus, .field select:focus {
+  background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2);
+}
+
+.sw { position: relative; }
+.sw::after {
+  content: ''; position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  width:0; height:0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--text3);
+  pointer-events: none;
+}
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.chip {
+  padding: 8px 16px; border-radius: 20px;
+  border: 1.5px solid var(--mid); font-size: 14px;
+  cursor: pointer; transition: all .18s;
+  background: var(--white); color: var(--text2);
+  font-family: inherit; user-select: none; letter-spacing: -0.1px;
+}
+.chip:hover { border-color: var(--blue); color: var(--blue); }
+.chip.on { background: var(--blue); border-color: var(--blue); color: white; }
+
+textarea {
+  width: 100%; background: var(--off); border: none;
+  border-radius: 12px; padding: 14px 16px;
+  font-size: 15px; font-family: inherit; color: var(--text);
+  resize: none; min-height: 90px; outline: none; line-height: 1.5;
+  transition: background .2s, box-shadow .2s;
+}
+textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
+
+.cta-wrap { padding: 20px 32px 28px; text-align: center; }
+
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: white; border: none;
+  border-radius: 980px; padding: 14px 36px;
+  font-size: 16px; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: background .2s, transform .15s;
+  letter-spacing: -0.2px;
+}
+.cta:hover { background: var(--blue-h); transform: scale(1.02); }
+.cta:active { transform: scale(.98); }
+.cta:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.result-card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; overflow: hidden;
+  animation: up .4s ease both; margin-bottom: 16px;
+}
+
+.rhead {
+  padding: 20px 28px; border-bottom: 1px solid var(--off);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.rtags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.rtag {
+  font-size: 12px; font-weight: 500; background: var(--off);
+  color: var(--text2); padding: 4px 10px; border-radius: 6px;
+}
+
+.rbody { padding: 32px 36px; }
+
+.rtext {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; line-height: 1.72; color: var(--text);
+  letter-spacing: -0.2px; white-space: pre-wrap;
+}
+
+.rfoot {
+  padding: 16px 28px; border-top: 1px solid var(--off);
+  display: flex; gap: 10px;
+}
+
+.gbtn {
+  background: var(--off); border: none; border-radius: 10px;
+  padding: 9px 16px; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: inherit; color: var(--text);
+  transition: background .18s; display: flex; align-items: center; gap: 5px;
+}
+.gbtn:hover { background: var(--mid); }
+.gbtn.ok { color: #1d7d3e; }
+
+.loading-card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; padding: 52px 32px;
+  text-align: center; margin-bottom: 16px;
+}
+
+.spinner {
+  width: 36px; height: 36px;
+  border: 2.5px solid var(--mid); border-top-color: var(--blue);
+  border-radius: 50%; animation: spin .8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-label {
+  font-size: 15px; color: var(--text3);
+  font-family: 'Playfair Display', serif; font-style: italic;
+}
+
+.hsec { margin-top: 48px; }
+.htitle {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.4px;
+  color: var(--text); margin-bottom: 14px;
+  font-family: 'Playfair Display', serif;
+}
+.hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.hitem {
+  background: var(--off); border-radius: 14px;
+  padding: 18px 20px; cursor: pointer;
+  transition: background .18s; position: relative; overflow: hidden;
+}
+.hitem:hover { background: #eaeaec; }
+
+.hprev {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; line-height: 1.5; color: var(--text);
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px;
+}
+
+.hmeta { font-size: 11px; color: var(--text3); display: flex; gap: 8px; }
+
+.hdel {
+  position: absolute; top: 10px; right: 10px;
+  background: none; border: none; color: var(--mid);
+  font-size: 16px; cursor: pointer; opacity: 0;
+  transition: opacity .18s, color .18s; padding: 2px 4px;
+}
+.hitem:hover .hdel { opacity: 1; }
+.hdel:hover { color: #c0392b; }
+
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.4);
+  backdrop-filter: blur(6px); z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 22px; animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.modal {
+  background: var(--white); border-radius: 20px;
+  padding: 36px 32px; max-width: 420px; width: 100%;
+  box-shadow: 0 40px 100px rgba(0,0,0,.25);
+  animation: mIn .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes mIn {
+  from { transform: scale(.92) translateY(20px); opacity:0; }
+  to   { transform: scale(1) translateY(0); opacity:1; }
+}
+
+.mtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.4px;
+}
+
+.msub { font-size: 14px; color: var(--text2); line-height: 1.5; margin-bottom: 22px; }
+.msub a { color: var(--blue); }
+
+.minput {
+  width: 100%; background: var(--off); border: none;
+  border-radius: 12px; padding: 13px 16px;
+  font-size: 14px; font-family: monospace; color: var(--text);
+  outline: none; margin-bottom: 12px; transition: box-shadow .2s;
+}
+.minput:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
+
+.mrow { display: flex; gap: 10px; }
+
+.msave {
+  flex: 1; background: var(--blue); color: white; border: none;
+  border-radius: 10px; padding: 13px; font-size: 15px;
+  font-weight: 500; font-family: inherit; cursor: pointer; transition: background .18s;
+}
+.msave:hover { background: var(--blue-h); }
+
+.mcancel {
+  background: var(--off); color: var(--text); border: none;
+  border-radius: 10px; padding: 13px 18px;
+  font-size: 15px; font-family: inherit; cursor: pointer; transition: background .18s;
+}
+.mcancel:hover { background: var(--mid); }
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 22px 50px; }
+  .sec { padding: 22px 20px; }
+  .row2 { grid-template-columns: 1fr; }
+  .cta-wrap { padding: 16px 20px 24px; }
+  .rbody { padding: 24px 22px; }
+  .rtext { font-size: 18px; }
+  .hgrid { grid-template-columns: 1fr; }
+  .rhead { flex-wrap: wrap; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">Ghostwriter</span>
+    <button class="nav-key" onclick="openModal()">API ключ</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="eyebrow">Powered by Claude AI</p>
+  <h1 class="hero-title">Слова, які<br><em>звучать як ти.</em></h1>
+  <p class="hero-sub">Введи параметри — отримай живий текст.<br>Без шаблонів. Без «щастя-здоров'я».</p>
+</section>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="sec">
+      <div class="sec-label">Параметри</div>
+      <div class="row2" style="margin-bottom:12px">
+        <div class="field">
+          <label>Привід</label>
+          <div class="sw">
+            <select id="occasion">
+              <option value="">Оберіть привід...</option>
+              <option>День народження</option>
+              <option>Ювілей</option>
+              <option>Весілля</option>
+              <option>Новий рік</option>
+              <option>Закоханість</option>
+              <option>Примирення</option>
+              <option>Просто так</option>
+              <option>Вибачення</option>
+              <option>Успіх / Перемога</option>
+              <option>Розставання</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Хто адресат</label>
+          <input type="text" id="recipient" placeholder="Дружина, колега, мама..." />
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Формат</label>
+          <div class="sw">
+            <select id="format">
+              <option value="">Оберіть формат...</option>
+              <option>Повідомлення</option>
+              <option>Тост</option>
+              <option>Листівка</option>
+              <option>Пост у соцмережах</option>
+              <option>Підпис до фото</option>
+              <option>Довгий лист</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Жанр</div>
+      <div class="chips">
+        <span class="chip" data-v="ніжно"    onclick="pick(this)">🌙 Ніжно</span>
+        <span class="chip" data-v="іронічно" onclick="pick(this)">😏 Іронічно</span>
+        <span class="chip" data-v="пікантно" onclick="pick(this)">🔥 Пікантно</span>
+        <span class="chip" data-v="щиро"     onclick="pick(this)">💛 Щиро</span>
+        <span class="chip" data-v="поетично" onclick="pick(this)">✍️ Поетично</span>
+        <span class="chip" data-v="грайливо" onclick="pick(this)">😜 Грайливо</span>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Деталі (необов'язково)</div>
+      <textarea id="details" placeholder="Спільні спогади, особливості людини, улюблені жарти — все це зробить текст живим..."></textarea>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta" id="genBtn" onclick="generate()">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+          <path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/>
+        </svg>
+        Згенерувати текст
+      </button>
+    </div>
+  </div>
+
+  <div id="resultArea"></div>
+
+  <div class="hsec" id="hsec" style="display:none">
+    <div class="htitle">Нещодавнє</div>
+    <div class="hgrid" id="hgrid"></div>
+  </div>
+</div>
+
+<div class="overlay" id="modal" style="display:none" onclick="overlayClick(event)">
+  <div class="modal">
+    <div class="mtitle">Claude API ключ</div>
+    <p class="msub">Отримай на <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Зберігається лише у твоєму браузері.</p>
+    <input type="password" class="minput" id="keyInput" placeholder="sk-ant-api03-..." />
+    <div class="mrow">
+      <button class="mcancel" onclick="closeModal()">Скасувати</button>
+      <button class="msave" onclick="saveKey()">Зберегти</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SYS = `Ти — елітний ghostwriter, який спеціалізується на коротких формах. Твій стиль — суміш сучасного копірайтингу та художньої прози.
+
+Характер:
+- Анти-кліше: ненавидиш шаблони «щастя-здоров'я» та нудні листівки
+- Природність: пишеш як близька людина, а не як бот
+- Психолог: відчуваєш межу між ніжністю і сентиментальністю, іронією і образою
+
+Жанри:
+- Ніжно: турбота в деталях — «тепла кава», «сонний голос». Не «моє сонечко».
+- Іронічно: інтелектуальний стендап, легкий сарказм над ситуацією, повага до адресата.
+- Пікантно: недомовленість і метафори, що читаються між рядків. Естетично, не вульгарно.
+- Тост: коротка історія з несподіваним фіналом або думка для роздумів після ковтка.
+
+Правило: пиши ЛИШЕ текст. Без пояснень, коментарів, варіантів. Один готовий текст. Мова: українська.`;
+
+let genre = '';
+let hist = JSON.parse(localStorage.getItem('gw_h') || '[]');
+
+function pick(el) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  genre = el.dataset.v;
+}
+
+function openModal() {
+  const k = localStorage.getItem('gw_key');
+  if (k) document.getElementById('keyInput').value = k;
+  document.getElementById('modal').style.display = 'flex';
+  setTimeout(() => document.getElementById('keyInput').focus(), 80);
+}
+
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+function overlayClick(e) { if (e.target.id === 'modal') closeModal(); }
+
+function saveKey() {
+  const v = document.getElementById('keyInput').value.trim();
+  if (!v) return;
+  localStorage.setItem('gw_key', v);
+  closeModal();
+}
+
+async function generate() {
+  const key = localStorage.getItem('gw_key');
+  if (!key) { openModal(); return; }
+
+  const occ = document.getElementById('occasion').value;
+  const rec = document.getElementById('recipient').value.trim();
+  const fmt = document.getElementById('format').value;
+  const det = document.getElementById('details').value.trim();
+
+  const parts = [
+    occ && `Привід: ${occ}`,
+    rec && `Адресат: ${rec}`,
+    fmt && `Формат: ${fmt}`,
+    genre && `Жанр: ${genre}`,
+    det && `Деталі: ${det}`,
+  ].filter(Boolean);
+
+  if (!parts.length) { document.getElementById('occasion').focus(); return; }
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></div>&nbsp; Пишу...';
+
+  document.getElementById('resultArea').innerHTML = `
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div class="loading-label">Підбираю слова...</div>
+    </div>`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYS,
+        messages: [{ role: 'user', content: parts.join('\n') }]
+      })
+    });
+
+    if (!res.ok) {
+      const e = await res.json();
+      throw new Error(e.error?.message || `HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    const text = data.content[0].text;
+    const entry = {
+      id: Date.now(), text,
+      occ, rec, fmt, genre, det,
+      date: new Date().toLocaleDateString('uk-UA', {day:'numeric', month:'short'})
+    };
+
+    hist.unshift(entry);
+    if (hist.length > 40) hist.pop();
+    localStorage.setItem('gw_h', JSON.stringify(hist));
+
+    showResult(entry);
+    renderHist();
+
+  } catch(e) {
+    document.getElementById('resultArea').innerHTML = `
+      <div class="result-card">
+        <div style="padding:24px 28px;color:#c0392b;font-size:14px">⚠ ${e.message}</div>
+      </div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/></svg> Згенерувати текст';
+  }
+}
+
+function showResult(e) {
+  const tags = [
+    e.occ && `<span class="rtag">${H(e.occ)}</span>`,
+    e.genre && `<span class="rtag">${H(e.genre)}</span>`,
+    e.fmt && `<span class="rtag">${H(e.fmt)}</span>`,
+  ].filter(Boolean).join('');
+
+  document.getElementById('resultArea').innerHTML = `
+    <div class="result-card">
+      <div class="rhead">
+        <div class="rtags">${tags}</div>
+        <span style="font-size:12px;color:var(--text3)">${e.date}</span>
+      </div>
+      <div class="rbody">
+        <div class="rtext" id="rt${e.id}">${H(e.text)}</div>
+      </div>
+      <div class="rfoot">
+        <button class="gbtn" id="cp${e.id}" onclick="copy(${e.id})">📋 Копіювати</button>
+        <button class="gbtn" onclick="rerun(${e.id})">↺ Ще раз</button>
+      </div>
+    </div>`;
+}
+
+function copy(id) {
+  const el = document.getElementById('rt'+id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const btn = document.getElementById('cp'+id);
+    btn.textContent = '✓ Скопійовано';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.innerHTML = '📋 Копіювати'; btn.classList.remove('ok'); }, 2500);
+  });
+}
+
+async function rerun(id) {
+  const e = hist.find(x => x.id === id);
+  if (!e) return;
+  document.getElementById('occasion').value = e.occ;
+  document.getElementById('recipient').value = e.rec;
+  document.getElementById('format').value = e.fmt;
+  document.getElementById('details').value = e.det;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
+  genre = e.genre;
+  await generate();
+}
+
+function renderHist() {
+  const sec = document.getElementById('hsec');
+  const grid = document.getElementById('hgrid');
+  if (!hist.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  grid.innerHTML = hist.slice(0,6).map(e => `
+    <div class="hitem" onclick="loadH(${e.id})">
+      <div class="hprev">${H(e.text)}</div>
+      <div class="hmeta">
+        <span>${e.date}</span>
+        ${e.genre ? `<span>· ${e.genre}</span>` : ''}
+        ${e.occ ? `<span>· ${e.occ}</span>` : ''}
+      </div>
+      <button class="hdel" onclick="delH(event,${e.id})">✕</button>
+    </div>`).join('');
+}
+
+function loadH(id) {
+  const e = hist.find(x => x.id === id);
+  if (!e) return;
+  document.getElementById('occasion').value = e.occ;
+  document.getElementById('recipient').value = e.rec;
+  document.getElementById('format').value = e.fmt;
+  document.getElementById('details').value = e.det;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
+  genre = e.genre;
+  showResult(e);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function delH(ev, id) {
+  ev.stopPropagation();
+  hist = hist.filter(x => x.id !== id);
+  localStorage.setItem('gw_h', JSON.stringify(hist));
+  renderHist();
+}
+
+function H(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+renderHist();
+if (!localStorage.getItem('gw_key')) setTimeout(openModal, 700);
+</script>
+</body>
+</html>
