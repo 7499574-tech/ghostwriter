@@ -418,9 +418,9 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 
 <div class="overlay" id="modal" style="display:none" onclick="overlayClick(event)">
   <div class="modal">
-    <div class="mtitle">Claude API ключ</div>
-    <p class="msub">Отримай на <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Зберігається лише у твоєму браузері.</p>
-    <input type="password" class="minput" id="keyInput" placeholder="sk-ant-api03-..." />
+    <div class="mtitle">Gemini API ключ</div>
+    <p class="msub">Отримай на <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>. Зберігається лише у твоєму браузері.</p>
+    <input type="password" class="minput" id="keyInput" placeholder="AIza..." />
     <div class="mrow">
       <button class="mcancel" onclick="closeModal()">Скасувати</button>
       <button class="msave" onclick="saveKey()">Зберегти</button>
@@ -500,19 +500,13 @@ async function generate() {
     </div>`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-cors': 'true'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYS,
-        messages: [{ role: 'user', content: parts.join('\n') }]
+        system_instruction: { parts: [{ text: SYS }] },
+        contents: [{ role: 'user', parts: [{ text: parts.join('\n') }] }],
+        generationConfig: { temperature: 1.0, maxOutputTokens: 1000 }
       })
     });
 
@@ -522,7 +516,8 @@ async function generate() {
     }
 
     const data = await res.json();
-    const text = data.content[0].text;
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error('Порожня відповідь від API');
     const entry = {
       id: Date.now(), text,
       occ, rec, fmt, genre, det,
@@ -634,6 +629,10 @@ function H(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// Автоматично підхопити ключ від spiker
+if (!localStorage.getItem("gw_key") && localStorage.getItem("gkey")) {
+  localStorage.setItem("gw_key", localStorage.getItem("gkey"));
+}
 renderHist();
 if (!localStorage.getItem('gw_key')) setTimeout(openModal, 700);
 </script>
