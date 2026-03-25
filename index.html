@@ -506,7 +506,8 @@ async function generate() {
       body: JSON.stringify({
         system_instruction: { parts: [{ text: SYS }] },
         contents: [{ role: 'user', parts: [{ text: parts.join('\n') }] }],
-        generationConfig: { temperature: 1.0, maxOutputTokens: 600 }
+        generationConfig: { temperature: 1.0, maxOutputTokens: 600 },
+        thinkingConfig: { thinkingBudget: 0 }
       })
     });
 
@@ -516,8 +517,13 @@ async function generate() {
     }
 
     const data = await res.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) throw new Error('Порожня відповідь від API');
+    const finishReason = data.candidates?.[0]?.finishReason;
+    if (finishReason === 'MAX_TOKENS') {
+      const lastDot = Math.max(text.lastIndexOf('.'), text.lastIndexOf('!'), text.lastIndexOf('?'));
+      if (lastDot > text.length * 0.5) text = text.slice(0, lastDot + 1);
+    }
     const entry = {
       id: Date.now(), text,
       occ, rec, fmt, genre, det,
