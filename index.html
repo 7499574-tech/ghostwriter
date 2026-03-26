@@ -229,6 +229,38 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
   color: var(--text); margin-bottom: 14px;
   font-family: 'Playfair Display', serif;
 }
+
+.holiday-banner {
+  background: linear-gradient(135deg, #fff8e7, #fff3d4);
+  border: 1px solid #f0c040;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: up .5s ease both;
+}
+.holiday-left { display: flex; align-items: center; gap: 10px; }
+.holiday-icon { font-size: 22px; }
+.holiday-name { font-size: 14px; font-weight: 600; color: #7a5c00; }
+.holiday-date { font-size: 12px; color: #a07830; }
+.holiday-btn {
+  background: #f0c040; border: none; border-radius: 10px;
+  padding: 8px 14px; font-size: 13px; font-weight: 500;
+  font-family: inherit; cursor: pointer; color: #5a3e00;
+  transition: background .18s; white-space: nowrap;
+}
+.holiday-btn:hover { background: #e0b030; }
+
+.time-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--off); border-radius: 20px;
+  padding: 5px 12px; font-size: 13px; color: var(--text2);
+  margin-bottom: 12px;
+}
+
 .hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
 .hitem {
@@ -335,6 +367,10 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 </section>
 
 <div class="wrap">
+  
+  <div id="timeBadge" class="time-badge"></div>
+  <div id="holidayBanner" style="display:none"></div>
+
   <div class="card">
 
     <div class="sec">
@@ -355,12 +391,25 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
               <option>Вибачення</option>
               <option>Успіх / Перемога</option>
               <option>Розставання</option>
+              <option disabled>── Державні свята ──</option>
+              <option>День Незалежності України</option>
+              <option>День захисників України</option>
+              <option>День Конституції</option>
+              <option>День праці</option>
+              <option>День перемоги над нацизмом</option>
+              <option disabled>── Церковні свята ──</option>
+              <option>Різдво Христове</option>
+              <option>Водохреще</option>
+              <option>Великдень</option>
+              <option>Трійця</option>
+              <option>Покрова</option>
+              <option>Спас</option>
             </select>
           </div>
         </div>
         <div class="field">
           <label>Хто адресат</label>
-          <input type="text" id="recipient" autocomplete="off" placeholder="Дружина, колега, мама..." />
+          <input type="text" id="recipient" autocomplete="off" data-lpignore="true" data-form-type="other" placeholder="Дружина, колега, мама..." />
         </div>
       </div>
       <div class="row2">
@@ -420,7 +469,7 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
   <div class="modal">
     <div class="mtitle">Gemini API ключ</div>
     <p class="msub">Отримай на <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>. Зберігається лише у твоєму браузері.</p>
-    <input type="password" class="minput" id="keyInput" placeholder="AIza..." />
+    <input autocomplete="off" type="text" class="minput" id="keyInput" data-lpignore="true" data-form-type="other" placeholder="AIza..." />
     <div class="mrow">
       <button class="mcancel" onclick="closeModal()">Скасувати</button>
       <button class="msave" onclick="saveKey()">Зберегти</button>
@@ -479,11 +528,13 @@ async function generate() {
   const fmt = document.getElementById('format').value;
   const det = document.getElementById('details').value.trim();
 
+  const tod = getTimeOfDay();
   const parts = [
     occ && `Привід: ${occ}`,
     rec && `Адресат: ${rec}`,
     fmt && `Формат: ${fmt}`,
     genre && `Жанр: ${genre}`,
+    `Час доби: ${tod.val} (використай відповідне привітання — ${tod.label})`,
     det && `Деталі: ${det}`,
   ].filter(Boolean);
 
@@ -640,12 +691,94 @@ function H(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+
+// ===== СВЯТА І ЧАС =====
+function getEaster(year) {
+  const a = year % 19, b = Math.floor(year/100), c = year % 100;
+  const d = Math.floor(b/4), e = b % 4, f = Math.floor((b+8)/25);
+  const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15) % 30;
+  const i = Math.floor(c/4), k = c % 4, l = (32+2*e+2*i-h-k) % 7;
+  const m = Math.floor((a+11*h+22*l)/451);
+  const month = Math.floor((h+l-7*m+114)/31);
+  const day = ((h+l-7*m+114) % 31) + 1;
+  return { month, day };
+}
+
+function getUkrHolidays(year) {
+  const easter = getEaster(year);
+  const easterDate = new Date(year, easter.month-1, easter.day);
+  const trinity = new Date(easterDate); trinity.setDate(trinity.getDate()+49);
+
+  return [
+    // Державні
+    { m:1,  d:1,  name:'Новий рік', icon:'🎆', type:'state' },
+    { m:1,  d:7,  name:'Різдво Христове (за юл. кал.)', icon:'⛪', type:'church' },
+    { m:1,  d:19, name:'Водохреще', icon:'💧', type:'church' },
+    { m:3,  d:8,  name:'Міжнародний жіночий день', icon:'💐', type:'state' },
+    { m:5,  d:1,  name:'День праці', icon:'⚒️', type:'state' },
+    { m:5,  d:9,  name:'День перемоги над нацизмом', icon:'🕊️', type:'state' },
+    { m:6,  d:28, name:'День Конституції України', icon:'📜', type:'state' },
+    { m:7,  d:28, name:'День Української Державності', icon:'🏛️', type:'state' },
+    { m:8,  d:24, name:'День Незалежності України', icon:'🇺🇦', type:'state' },
+    { m:10, d:14, name:'День захисників України / Покрова', icon:'🛡️', type:'both' },
+    { m:12, d:25, name:'Різдво Христове', icon:'🎄', type:'church' },
+    // Рухомі
+    { m: easter.month, d: easter.day, name:'Великдень', icon:'🐣', type:'church' },
+    { m: trinity.getMonth()+1, d: trinity.getDate(), name:'Трійця', icon:'🌿', type:'church' },
+    // Спас — 19 серпня
+    { m:8, d:19, name:'Яблучний Спас', icon:'🍎', type:'church' },
+  ];
+}
+
+function getTodayHoliday() {
+  const now = new Date();
+  const m = now.getMonth()+1, d = now.getDate(), y = now.getFullYear();
+  return getUkrHolidays(y).find(h => h.m === m && h.d === d) || null;
+}
+
+function getTimeOfDay() {
+  const h = new Date().getHours();
+  if (h >= 5 && h < 12) return { label:'Доброго ранку', icon:'🌅', val:'ранок' };
+  if (h >= 12 && h < 17) return { label:'Доброго дня', icon:'☀️', val:'день' };
+  if (h >= 17 && h < 22) return { label:'Доброго вечора', icon:'🌆', val:'вечір' };
+  return { label:'Доброї ночі', icon:'🌙', val:'ніч' };
+}
+
+function initTimeAndHoliday() {
+  const tod = getTimeOfDay();
+  const badge = document.getElementById('timeBadge');
+  if (badge) badge.innerHTML = tod.icon + ' ' + tod.label;
+
+  const holiday = getTodayHoliday();
+  const banner = document.getElementById('holidayBanner');
+  if (holiday && banner) {
+    banner.style.display = 'flex';
+    banner.innerHTML = `
+      <div class="holiday-left">
+        <span class="holiday-icon">${holiday.icon}</span>
+        <div>
+          <div class="holiday-name">${holiday.name}</div>
+          <div class="holiday-date">Сьогоднішнє свято</div>
+        </div>
+      </div>
+      <button class="holiday-btn" onclick="genHoliday('${holiday.name}', '${tod.val}')">Привітати →</button>`;
+  }
+}
+
+function genHoliday(name, timeOfDay) {
+  document.getElementById('occasion').value = name;
+  // Scroll to form
+  document.querySelector('.card').scrollIntoView({behavior:'smooth'});
+}
+// ===== КІНЕЦЬ СВЯТ =====
+
 // Автоматично підхопити ключ від spiker
 if (!localStorage.getItem("gw_key") && localStorage.getItem("gkey")) {
   localStorage.setItem("gw_key", localStorage.getItem("gkey"));
 }
 renderHist();
 if (!localStorage.getItem('gw_key')) setTimeout(openModal, 700);
+initTimeAndHoliday();
 </script>
 </body>
 </html>
