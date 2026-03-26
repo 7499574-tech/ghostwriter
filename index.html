@@ -230,36 +230,21 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
   font-family: 'Playfair Display', serif;
 }
 
-.holiday-banner {
-  background: linear-gradient(135deg, #fff8e7, #fff3d4);
-  border: 1px solid #f0c040;
-  border-radius: 14px;
-  padding: 14px 18px;
+.quick-chips {
+  display: flex; gap: 10px; flex-wrap: wrap;
   margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  animation: up .5s ease both;
 }
-.holiday-left { display: flex; align-items: center; gap: 10px; }
-.holiday-icon { font-size: 22px; }
-.holiday-name { font-size: 14px; font-weight: 600; color: #7a5c00; }
-.holiday-date { font-size: 12px; color: #a07830; }
-.holiday-btn {
-  background: #f0c040; border: none; border-radius: 10px;
-  padding: 8px 14px; font-size: 13px; font-weight: 500;
-  font-family: inherit; cursor: pointer; color: #5a3e00;
-  transition: background .18s; white-space: nowrap;
-}
-.holiday-btn:hover { background: #e0b030; }
 
-.time-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--off); border-radius: 20px;
-  padding: 5px 12px; font-size: 13px; color: var(--text2);
-  margin-bottom: 12px;
+.qchip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--off); border: 1.5px solid var(--mid);
+  border-radius: 20px; padding: 9px 16px;
+  font-size: 14px; font-family: inherit; color: var(--text2);
+  cursor: pointer; transition: all .18s; user-select: none;
 }
+.qchip:hover { border-color: var(--blue); color: var(--blue); background: #f0f6ff; }
+.qchip.holiday { background: #fff8e7; border-color: #f0c040; color: #7a5c00; }
+.qchip.holiday:hover { background: #fff0c0; border-color: #e0a800; }
 
 .hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
@@ -368,8 +353,7 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 
 <div class="wrap">
   
-  <div id="timeBadge" class="time-badge"></div>
-  <div id="holidayBanner" style="display:none"></div>
+  <div class="quick-chips" id="quickChips"></div>
 
   <div class="card">
 
@@ -750,29 +734,30 @@ function getTimeOfDay() {
 
 function initTimeAndHoliday() {
   const tod = getTimeOfDay();
-  const badge = document.getElementById('timeBadge');
-  if (badge) badge.innerHTML = tod.icon + ' ' + tod.label;
-
   const holiday = getTodayHoliday();
-  const banner = document.getElementById('holidayBanner');
-  if (holiday && banner) {
-    banner.style.display = 'flex';
-    banner.innerHTML = `
-      <div class="holiday-left">
-        <span class="holiday-icon">${holiday.icon}</span>
-        <div>
-          <div class="holiday-name">${holiday.name}</div>
-          <div class="holiday-date">Сьогоднішнє свято</div>
-        </div>
-      </div>
-      <button class="holiday-btn" onclick="genHoliday('${holiday.name}', '${tod.val}')">Привітати →</button>`;
+  const wrap = document.getElementById('quickChips');
+  if (!wrap) return;
+
+  // Time chip
+  const tc = document.createElement('span');
+  tc.className = 'qchip';
+  tc.innerHTML = tod.icon + ' ' + tod.label;
+  tc.onclick = () => quickGen(tod.label);
+  wrap.appendChild(tc);
+
+  // Holiday chip
+  if (holiday) {
+    const hc = document.createElement('span');
+    hc.className = 'qchip holiday';
+    hc.innerHTML = holiday.icon + ' ' + holiday.name;
+    hc.onclick = () => quickGen(holiday.name);
+    wrap.appendChild(hc);
   }
 }
 
-function genHoliday(name, timeOfDay) {
-  document.getElementById('occasion').value = name;
-  // Scroll to form
-  document.querySelector('.card').scrollIntoView({behavior:'smooth'});
+function quickGen(occasionName) {
+  document.getElementById('occasion').value = occasionName;
+  document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 // ===== КІНЕЦЬ СВЯТ =====
 
