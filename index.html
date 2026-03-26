@@ -360,7 +360,7 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
         </div>
         <div class="field">
           <label>Хто адресат</label>
-          <input type="text" id="recipient" placeholder="Дружина, колега, мама..." />
+          <input type="text" id="recipient" autocomplete="off" placeholder="Дружина, колега, мама..." />
         </div>
       </div>
       <div class="row2">
@@ -500,7 +500,7 @@ async function generate() {
     </div>`;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${key}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
