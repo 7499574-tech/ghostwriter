@@ -3,298 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghostwriter — Автор-привид</title>
+<title>Ghostwriter</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --white: #ffffff; --off: #f5f5f7; --mid: #d2d2d7;
-  --text: #1d1d1f; --text2: #6e6e73; --text3: #86868b;
-  --blue: #0071e3; --blue-h: #0077ed;
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  background: var(--white); color: var(--text); min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--white:#fff;--off:#f5f5f7;--mid:#d2d2d7;--text:#1d1d1f;--text2:#6e6e73;--text3:#86868b;--blue:#0071e3;--blueh:#0077ed}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;background:var(--white);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* NAV */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-.nav-inner {
-  max-width: 760px; margin: 0 auto; padding: 0 22px;
-  height: 52px; display: flex; align-items: center; justify-content: space-between;
-}
-.nav-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
-.nav-key { font-size: 13px; color: var(--blue); background: none; border: none; cursor: pointer; font-family: inherit; }
-.nav-key:hover { text-decoration: underline; }
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
+.nav-inner{max-width:760px;margin:0 auto;padding:0 22px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:700}
+.nav-key{font-size:13px;color:var(--blue);background:none;border:none;cursor:pointer;font-family:inherit}
+.nav-key:hover{text-decoration:underline}
 
-/* HERO */
-.hero {
-  text-align: center; padding: 70px 22px 50px;
-  max-width: 760px; margin: 0 auto;
-  animation: up 0.7s ease both;
-}
-@keyframes up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(40px,7vw,68px); font-weight: 700;
-  line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 16px;
-}
-.hero-title em { font-style: italic; color: var(--text2); }
-.hero-sub { font-size: 17px; line-height: 1.5; color: var(--text2); font-weight: 300; }
+.hero{text-align:center;padding:70px 22px 50px;max-width:760px;margin:0 auto;animation:up .7s ease both}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,68px);font-weight:700;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px}
+.hero-title em{font-style:italic;color:var(--text2)}
+.hero-sub{font-size:17px;line-height:1.5;color:var(--text2);font-weight:300}
 
-/* QUICK CHIPS */
-.quick-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-.qchip {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: var(--off); border: 1.5px solid var(--mid);
-  border-radius: 20px; padding: 9px 16px;
-  font-size: 14px; font-family: inherit; color: var(--text2);
-  cursor: pointer; transition: all .18s; user-select: none;
-}
-.qchip:hover { border-color: var(--blue); color: var(--blue); background: #f0f6ff; }
-.qchip.holiday { background: #fff8e7; border-color: #f0c040; color: #7a5c00; }
-.qchip.holiday:hover { background: #fff0c0; border-color: #e0a800; }
+.quick-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.qchip{display:inline-flex;align-items:center;gap:7px;background:var(--off);border:1.5px solid var(--mid);border-radius:20px;padding:9px 16px;font-size:14px;font-family:inherit;color:var(--text2);cursor:pointer;transition:all .18s;user-select:none}
+.qchip:hover{border-color:var(--blue);color:var(--blue);background:#f0f6ff}
+.qchip.holiday{background:#fff8e7;border-color:#f0c040;color:#7a5c00}
+.qchip.holiday:hover{background:#fff0c0;border-color:#e0a800}
 
-/* WRAP */
-.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
+.wrap{max-width:760px;margin:0 auto;padding:0 22px 100px}
+.card{background:var(--white);border:1px solid var(--mid);border-radius:20px;overflow:hidden;margin-bottom:16px;transition:box-shadow .3s}
+.card:hover{box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.sec{padding:24px 28px;border-bottom:1px solid var(--off)}
+.sec:last-child{border-bottom:none}
+.sec-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
 
-/* CARD */
-.card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; overflow: hidden; margin-bottom: 16px;
-  transition: box-shadow .3s;
-}
-.card:hover { box-shadow: 0 8px 40px rgba(0,0,0,.08); }
-.sec { padding: 24px 28px; border-bottom: 1px solid var(--off); }
-.sec:last-child { border-bottom: none; }
-.sec-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; }
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:500;color:var(--text2)}
+.field input,.field select{background:var(--off);border:none;border-radius:10px;padding:11px 14px;font-size:15px;color:var(--text);font-family:inherit;outline:none;transition:background .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;width:100%}
+.field input:focus,.field select:focus{background:#fff;box-shadow:0 0 0 3px rgba(0,113,227,.2)}
+.sw{position:relative}
+.sw::after{content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--text3);pointer-events:none}
 
-/* FIELDS */
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-size: 13px; font-weight: 500; color: var(--text2); }
-.field input, .field select {
-  background: var(--off); border: none; border-radius: 10px;
-  padding: 11px 14px; font-size: 15px; color: var(--text);
-  font-family: inherit; outline: none;
-  transition: background .2s, box-shadow .2s;
-  -webkit-appearance: none; appearance: none; width: 100%;
-}
-.field input:focus, .field select:focus {
-  background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2);
-}
-.sw { position: relative; }
-.sw::after {
-  content: ''; position: absolute; right: 14px; top: 50%;
-  transform: translateY(-50%);
-  width:0; height:0;
-  border-left: 4px solid transparent; border-right: 4px solid transparent;
-  border-top: 5px solid var(--text3); pointer-events: none;
-}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 16px;border-radius:20px;border:1.5px solid var(--mid);font-size:14px;cursor:pointer;transition:all .18s;background:var(--white);color:var(--text2);font-family:inherit;user-select:none}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--blue);border-color:var(--blue);color:white}
 
-/* CHIPS */
-.chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.chip {
-  padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--mid);
-  font-size: 14px; cursor: pointer; transition: all .18s;
-  background: var(--white); color: var(--text2);
-  font-family: inherit; user-select: none;
-}
-.chip:hover { border-color: var(--blue); color: var(--blue); }
-.chip.on { background: var(--blue); border-color: var(--blue); color: white; }
+.style-chip{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--mid);border-radius:20px;padding:7px 14px;font-size:13px;font-family:inherit;color:var(--text2);cursor:pointer;transition:all .18s;user-select:none;margin:0 6px 6px 0}
+.style-chip:hover{border-color:#059669;color:#059669;background:#f0fdf4}
+.style-chip.on{background:#059669;border-color:#059669;color:white}
 
-/* STYLE CHIPS */
-.style-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--white); border: 1.5px solid var(--mid);
-  border-radius: 20px; padding: 7px 14px;
-  font-size: 13px; font-family: inherit; color: var(--text2);
-  cursor: pointer; transition: all .18s; user-select: none;
-  margin: 0 6px 6px 0;
-}
-.style-chip:hover { border-color: #059669; color: #059669; background: #f0fdf4; }
-.style-chip.on { background: #059669; border-color: #059669; color: white; }
+.writer-chip{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--mid);border-radius:20px;padding:7px 14px;font-size:13px;font-family:inherit;color:var(--text2);cursor:pointer;transition:all .18s;user-select:none;margin:0 6px 6px 0}
+.writer-chip:hover{border-color:#8b5cf6;color:#8b5cf6;background:#faf5ff}
+.writer-chip.on{background:#8b5cf6;border-color:#8b5cf6;color:white}
 
-/* WRITER CHIPS */
-.writer-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--white); border: 1.5px solid var(--mid);
-  border-radius: 20px; padding: 7px 14px;
-  font-size: 13px; font-family: inherit; color: var(--text2);
-  cursor: pointer; transition: all .18s; user-select: none;
-  margin: 0 6px 6px 0;
-}
-.writer-chip:hover { border-color: #8b5cf6; color: #8b5cf6; background: #faf5ff; }
-.writer-chip.on { background: #8b5cf6; border-color: #8b5cf6; color: white; }
+textarea{width:100%;background:var(--off);border:none;border-radius:12px;padding:14px 16px;font-size:15px;font-family:inherit;color:var(--text);resize:none;min-height:90px;outline:none;line-height:1.5;transition:background .2s,box-shadow .2s}
+textarea:focus{background:#fff;box-shadow:0 0 0 3px rgba(0,113,227,.2)}
 
-/* TEXTAREA */
-textarea {
-  width: 100%; background: var(--off); border: none;
-  border-radius: 12px; padding: 14px 16px;
-  font-size: 15px; font-family: inherit; color: var(--text);
-  resize: none; min-height: 90px; outline: none; line-height: 1.5;
-  transition: background .2s, box-shadow .2s;
-}
-textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
+.cta-wrap{padding:20px 28px 26px;text-align:center}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;border:none;border-radius:980px;padding:14px 36px;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;transition:background .2s,transform .15s}
+.cta:hover{background:var(--blueh);transform:scale(1.02)}
+.cta:active{transform:scale(.98)}
+.cta:disabled{opacity:.5;cursor:not-allowed;transform:none}
 
-/* CTA */
-.cta-wrap { padding: 20px 28px 26px; text-align: center; }
-.cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--blue); color: white; border: none;
-  border-radius: 980px; padding: 14px 36px;
-  font-size: 16px; font-weight: 500; font-family: inherit;
-  cursor: pointer; transition: background .2s, transform .15s;
-}
-.cta:hover { background: var(--blue-h); transform: scale(1.02); }
-.cta:active { transform: scale(.98); }
-.cta:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.result-card{background:var(--white);border:1px solid var(--mid);border-radius:20px;overflow:hidden;animation:up .4s ease both;margin-bottom:16px}
+.rhead{padding:18px 26px;border-bottom:1px solid var(--off);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.rtags{display:flex;gap:6px;flex-wrap:wrap}
+.rtag{font-size:12px;font-weight:500;background:var(--off);color:var(--text2);padding:4px 10px;border-radius:6px}
+.rbody{padding:28px 30px}
+.edit-area{width:100%;font-family:'Playfair Display',serif;font-size:19px;line-height:1.72;color:var(--text);letter-spacing:-0.2px;border:1px dashed transparent;border-radius:8px;outline:none;background:transparent;resize:none;padding:4px;cursor:text;transition:border-color .2s,background .2s;overflow:hidden;field-sizing:content}
+.edit-area:focus{border-color:var(--mid);background:var(--off)}
+.edit-hint{font-size:11px;color:var(--text3);margin-top:6px;font-style:italic;cursor:pointer}
+.refine-row{display:flex;gap:8px;margin-top:14px;border-top:1px solid var(--off);padding-top:14px}
+.refine-input{flex:1;background:var(--off);border:none;border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;color:var(--text);outline:none;transition:box-shadow .2s}
+.refine-input:focus{box-shadow:0 0 0 3px rgba(0,113,227,.15);background:#fff}
+.refine-btn{background:var(--text);color:var(--white);border:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;white-space:nowrap;transition:background .18s}
+.refine-btn:hover{background:#333}
+.refine-btn:disabled{opacity:.5;cursor:not-allowed}
+.rfoot{padding:14px 26px;border-top:1px solid var(--off);display:flex;gap:10px}
+.gbtn{background:var(--off);border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--text);transition:background .18s;display:flex;align-items:center;gap:5px}
+.gbtn:hover{background:var(--mid)}
+.gbtn.ok{color:#1d7d3e}
 
-/* RESULT */
-.result-card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; overflow: hidden;
-  animation: up .4s ease both; margin-bottom: 16px;
-}
-.rhead {
-  padding: 18px 26px; border-bottom: 1px solid var(--off);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-}
-.rtags { display: flex; gap: 6px; flex-wrap: wrap; }
-.rtag { font-size: 12px; font-weight: 500; background: var(--off); color: var(--text2); padding: 4px 10px; border-radius: 6px; }
-.rbody { padding: 28px 30px; }
-.edit-area {
-  width: 100%; min-height: 60px; height: auto; overflow: hidden;
-  font-family: 'Playfair Display', serif;
-  font-size: 19px; line-height: 1.72; color: var(--text);
-  letter-spacing: -0.2px; white-space: pre-wrap;
-  border: 1px dashed transparent; border-radius: 8px;
-  outline: none; background: transparent;
-  resize: none; padding: 4px; cursor: text;
-  transition: border-color .2s, background .2s;
-  field-sizing: content;
-}
-.edit-area:focus { border-color: var(--mid); background: var(--off); }
-.edit-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; cursor: pointer; }
-.refine-row {
-  display: flex; gap: 8px; margin-top: 14px;
-  border-top: 1px solid var(--off); padding-top: 14px;
-}
-.refine-input {
-  flex: 1; background: var(--off); border: none; border-radius: 10px;
-  padding: 9px 12px; font-size: 13px; font-family: inherit; color: var(--text);
-  outline: none; transition: box-shadow .2s;
-}
-.refine-input:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.15); background: #fff; }
-.refine-btn {
-  background: var(--text); color: var(--white); border: none;
-  border-radius: 10px; padding: 9px 14px; font-size: 13px;
-  font-weight: 500; font-family: inherit; cursor: pointer;
-  white-space: nowrap; transition: background .18s;
-}
-.refine-btn:hover { background: #333; }
-.refine-btn:disabled { opacity: .5; cursor: not-allowed; }
-.rfoot { padding: 14px 26px; border-top: 1px solid var(--off); display: flex; gap: 10px; }
-.gbtn {
-  background: var(--off); border: none; border-radius: 10px;
-  padding: 9px 16px; font-size: 13px; font-weight: 500;
-  cursor: pointer; font-family: inherit; color: var(--text);
-  transition: background .18s; display: flex; align-items: center; gap: 5px;
-}
-.gbtn:hover { background: var(--mid); }
-.gbtn.ok { color: #1d7d3e; }
+.loading-card{background:var(--white);border:1px solid var(--mid);border-radius:20px;padding:50px 32px;text-align:center;margin-bottom:16px}
+.spinner{width:34px;height:34px;border:2.5px solid var(--mid);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{font-size:15px;color:var(--text3);font-family:'Playfair Display',serif;font-style:italic}
 
-/* LOADING */
-.loading-card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; padding: 50px 32px; text-align: center; margin-bottom: 16px;
-}
-.spinner {
-  width: 34px; height: 34px; border: 2.5px solid var(--mid);
-  border-top-color: var(--blue); border-radius: 50%;
-  animation: spin .8s linear infinite; margin: 0 auto 14px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-label { font-size: 15px; color: var(--text3); font-family: 'Playfair Display', serif; font-style: italic; }
+.hsec{margin-top:48px}
+.htitle{font-size:22px;font-weight:700;letter-spacing:-0.4px;font-family:'Playfair Display',serif;margin-bottom:14px}
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hitem{background:var(--off);border-radius:14px;padding:18px 20px;cursor:pointer;transition:background .18s;position:relative;overflow:hidden}
+.hitem:hover{background:#eaeaec}
+.hprev{font-family:'Playfair Display',serif;font-size:14px;line-height:1.5;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
+.hmeta{font-size:11px;color:var(--text3);display:flex;gap:8px}
+.hdel{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--mid);font-size:16px;cursor:pointer;opacity:0;transition:opacity .18s,color .18s;padding:2px 4px}
+.hitem:hover .hdel{opacity:1}
+.hdel:hover{color:#c0392b}
 
-/* HISTORY */
-.hsec { margin-top: 48px; }
-.htitle { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; font-family: 'Playfair Display', serif; margin-bottom: 14px; }
-.hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.hitem {
-  background: var(--off); border-radius: 14px; padding: 18px 20px;
-  cursor: pointer; transition: background .18s; position: relative; overflow: hidden;
-}
-.hitem:hover { background: #eaeaec; }
-.hprev {
-  font-family: 'Playfair Display', serif; font-size: 14px; line-height: 1.5; color: var(--text);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px;
-}
-.hmeta { font-size: 11px; color: var(--text3); display: flex; gap: 8px; }
-.hdel {
-  position: absolute; top: 10px; right: 10px; background: none; border: none;
-  color: var(--mid); font-size: 16px; cursor: pointer; opacity: 0;
-  transition: opacity .18s, color .18s; padding: 2px 4px;
-}
-.hitem:hover .hdel { opacity: 1; }
-.hdel:hover { color: #c0392b; }
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:22px;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--white);border-radius:20px;padding:36px 32px;max-width:420px;width:100%;box-shadow:0 40px 100px rgba(0,0,0,.25);animation:mIn .3s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes mIn{from{transform:scale(.92) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.mtitle{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:6px}
+.msub{font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:22px}
+.msub a{color:var(--blue)}
+.minput{width:100%;background:var(--off);border:none;border-radius:12px;padding:13px 16px;font-size:14px;font-family:inherit;color:var(--text);outline:none;margin-bottom:12px;transition:box-shadow .2s}
+.minput:focus{box-shadow:0 0 0 3px rgba(0,113,227,.2)}
+.mrow{display:flex;gap:10px}
+.msave{flex:1;background:var(--blue);color:white;border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:500;font-family:inherit;cursor:pointer;transition:background .18s}
+.msave:hover{background:var(--blueh)}
+.mcancel{background:var(--off);color:var(--text);border:none;border-radius:10px;padding:13px 18px;font-size:15px;font-family:inherit;cursor:pointer;transition:background .18s}
+.mcancel:hover{background:var(--mid)}
 
-/* MODAL */
-.overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,.4);
-  backdrop-filter: blur(6px); z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
-  padding: 22px; animation: fadeIn .2s ease;
-}
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-.modal {
-  background: var(--white); border-radius: 20px; padding: 36px 32px;
-  max-width: 420px; width: 100%;
-  box-shadow: 0 40px 100px rgba(0,0,0,.25);
-  animation: mIn .3s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes mIn { from { transform: scale(.92) translateY(20px); opacity:0; } to { transform: scale(1) translateY(0); opacity:1; } }
-.mtitle { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-.msub { font-size: 14px; color: var(--text2); line-height: 1.5; margin-bottom: 22px; }
-.msub a { color: var(--blue); }
-.minput {
-  width: 100%; background: var(--off); border: none; border-radius: 12px;
-  padding: 13px 16px; font-size: 14px; font-family: inherit; color: var(--text);
-  outline: none; margin-bottom: 12px; transition: box-shadow .2s;
-}
-.minput:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
-.mrow { display: flex; gap: 10px; }
-.msave {
-  flex: 1; background: var(--blue); color: white; border: none;
-  border-radius: 10px; padding: 13px; font-size: 15px;
-  font-weight: 500; font-family: inherit; cursor: pointer; transition: background .18s;
-}
-.msave:hover { background: var(--blue-h); }
-.mcancel {
-  background: var(--off); color: var(--text); border: none;
-  border-radius: 10px; padding: 13px 18px; font-size: 15px;
-  font-family: inherit; cursor: pointer; transition: background .18s;
-}
-.mcancel:hover { background: var(--mid); }
-
-@media (max-width: 600px) {
-  .hero { padding: 50px 22px 40px; }
-  .sec { padding: 20px 18px; }
-  .row2 { grid-template-columns: 1fr; }
-  .cta-wrap { padding: 16px 18px 22px; }
-  .rbody { padding: 22px 20px; }
-  .edit-area { font-size: 17px; }
-  .hgrid { grid-template-columns: 1fr; }
-  .rhead { flex-wrap: wrap; }
+@media(max-width:600px){
+  .hero{padding:50px 22px 40px}
+  .sec{padding:20px 18px}
+  .row2{grid-template-columns:1fr}
+  .cta-wrap{padding:16px 18px 22px}
+  .rbody{padding:22px 20px}
+  .edit-area{font-size:17px}
+  .hgrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -314,11 +144,9 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 </section>
 
 <div class="wrap">
-
   <div class="quick-chips" id="quickChips"></div>
 
   <div class="card">
-
     <div class="sec">
       <div class="sec-label">Параметри</div>
       <div class="row2" style="margin-bottom:12px">
@@ -396,23 +224,23 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
     <div class="sec">
       <div class="sec-label">Стиль подачі</div>
       <div>
-        <span class="style-chip" data-s="розмовний — пиши як жива людина з телефону, просто і природно, без прикрас" onclick="pickStyle(this)">💬 Розмовний</span>
-        <span class="style-chip" data-s="лаконічний — мінімум слів, максимум змісту, жодного зайвого" onclick="pickStyle(this)">⚡ Лаконічний</span>
-        <span class="style-chip" data-s="літературний — грамотно і образно, але не пафосно" onclick="pickStyle(this)">📖 Літературний</span>
-        <span class="style-chip" data-s="поетичний — ритм, метафори, відчуття — але не вірш" onclick="pickStyle(this)">🌸 Поетичний</span>
+        <span class="style-chip" data-v="розмовний" onclick="pickStyle(this)">💬 Розмовний</span>
+        <span class="style-chip" data-v="лаконічний" onclick="pickStyle(this)">⚡ Лаконічний</span>
+        <span class="style-chip" data-v="літературний" onclick="pickStyle(this)">📖 Літературний</span>
+        <span class="style-chip" data-v="поетичний" onclick="pickStyle(this)">🌸 Поетичний</span>
       </div>
     </div>
 
     <div class="sec">
       <div class="sec-label">Стиль автора (необов'язково)</div>
       <div>
-        <span class="writer-chip" data-style="Леся Українка: поетично, з внутрішньою силою і ліризмом, образи природи і волі" onclick="pickWriter(this)">🌿 Леся Українка</span>
-        <span class="writer-chip" data-style="Ліна Костенко: лаконічно, філософська глибина, несподівані метафори, мінімум слів — максимум змісту" onclick="pickWriter(this)">✒️ Ліна Костенко</span>
-        <span class="writer-chip" data-style="Сергій Жадан: сучасна міська поетика, сирість і відвертість, живі розмовні інтонації" onclick="pickWriter(this)">🏙️ Сергій Жадан</span>
-        <span class="writer-chip" data-style="Ернест Хемінгуей: коротко, без прикрас, сильні прості речення, айсберг — більше мовчить ніж говорить" onclick="pickWriter(this)">🥃 Хемінгуей</span>
-        <span class="writer-chip" data-style="Еріх Марія Ремарк: меланхолійно, чуттєво, з гіркою ніжністю і відчуттям втрати" onclick="pickWriter(this)">🌧️ Ремарк</span>
-        <span class="writer-chip" data-style="Лорд Байрон: пристрасно і романтично, з драматизмом і бунтарським духом, піднесені образи" onclick="pickWriter(this)">🔥 Байрон</span>
-        <span class="writer-chip" data-style="Габріель Гарсіа Маркес: магічний реалізм, чуттєві деталі, час тече інакше, реальне переплітається з неймовірним" onclick="pickWriter(this)">🦋 Маркес</span>
+        <span class="writer-chip" data-v="леся" onclick="pickWriter(this)">🌿 Леся Українка</span>
+        <span class="writer-chip" data-v="костенко" onclick="pickWriter(this)">✒️ Ліна Костенко</span>
+        <span class="writer-chip" data-v="жадан" onclick="pickWriter(this)">🏙️ Сергій Жадан</span>
+        <span class="writer-chip" data-v="хемінгуей" onclick="pickWriter(this)">🥃 Хемінгуей</span>
+        <span class="writer-chip" data-v="ремарк" onclick="pickWriter(this)">🌧️ Ремарк</span>
+        <span class="writer-chip" data-v="байрон" onclick="pickWriter(this)">🔥 Байрон</span>
+        <span class="writer-chip" data-v="маркес" onclick="pickWriter(this)">🦋 Маркес</span>
       </div>
     </div>
 
@@ -450,22 +278,36 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 </div>
 
 <script>
-const SYS = `Ти — елітний ghostwriter, який спеціалізується на коротких формах.
+// ── PROMPT CONFIGS ──
+const BASE_PROMPT = "Ти ghostwriter. Пишеш короткі тексти що звучать як жива людина, а не бот. ЗАБОРОНЕНО: шаблони, пафос, очевидні жарти, фрази типу 'нехай збуваються мрії', 'щастя-здоров'я', 'судячи з назви'. Генеруй ЗАВЕРШЕНИЙ текст — не обривай думку. Лише готовий текст без пояснень. Мова: українська.";
 
-Характер:
-- Анти-кліше: ненавидиш шаблони «щастя-здоров'я» та нудні листівки
-- Природність: пишеш як близька людина, а не як бот
-- Психолог: відчуваєш межу між ніжністю і сентиментальністю, іронією і образою
+const GENRE = {
+  "нiжно": "Пиши з великою теплотою. Уявляй що звертаєшся до найближчої людини. Деталі важливіші за слова: 'тепла кава' краще ніж 'моє сонечко'. Без зменшувально-пестливого фанатизму.",
+  "іронічно": "Гострий але не образливий — як дружній підкол. Неочікувані порівняння і гра слів. ЗАБОРОНЕНО: шаблонний гумор, очевидні жарти, фрази типу 'судячи з назви' або 'виправдовує очікування'.",
+  "пікантно": "Атмосфера флірту і натяків. Основне читається між рядків. Естетично і з повагою — без вульгарності.",
+  "щиро": "Максимальна чесність. Просто, без складних метафор. Прямі звернення. Ніби написано від руки на звороті старого фото.",
+  "поетично": "Образи і ритміка прози. Метафори що апелюють до відчуттів — запах, звук, світло. Мелодійно.",
+  "грайливо": "Легкий енергійний тон. Вигуки, питання що залучають до діалогу. Коротке і динамічне — повідомлення-усмішка."
+};
 
-Жанри:
-- Ніжно: турбота в деталях — «тепла кава», «сонний голос». Не «моє сонечко».
-- Іронічно: інтелектуальний стендап, легкий сарказм, повага до адресата.
-- Пікантно: недомовленість і метафори між рядків. Естетично, не вульгарно.
-- Тост: коротка історія з несподіваним фіналом або думка для роздумів.
+const STYLE = {
+  "розмовний": "Пиши як у месенджері. Можна скорочення і доречний сленг. Не обов'язково крапка в кінці. Більше життя — менше підручника.",
+  "лаконічний": "Тільки суть. Кожна фраза — як постріл. Жодної води. 1-2 речення що б'ють точно в ціль.",
+  "літературний": "Вишукана українська мова. Багатий словниковий запас. Речення можуть бути складними але красивими.",
+  "поетичний": "Ліричний настрій, ритміка прози, образи. Не вірш — але близько."
+};
 
-Якщо стиль подачі не вказано — пиши розмовно і природно, як жива людина, а не як письменник.
-Правило: пиши ЛИШЕ готовий текст. Без пояснень і коментарів. 2-4 речення для повідомлення, 5-7 для листа чи посту. Останнє речення ЗАВЖДИ завершуй крапкою або знаком оклику. Мова: українська.`;
+const WRITER = {
+  "леся": "Пиши в стилі Лесі Українки: мотиви незламності і волі, образи природи (досвітні вогні, квіти крізь кригу), тон гордий але чуттєвий.",
+  "костенко": "Пиши в стилі Ліни Костенко: мінімум слів — максимум змісту, несподівані метафори, кожне слово важить.",
+  "жадан": "Пиши в стилі Сергія Жадана: урбаністична романтика, присмак залізниці і вітру, про 'тут і зараз', ритмічно і чесно.",
+  "хемінгуей": "Пиши в стилі Хемінгуея: короткі речення, мінімум прикметників, теорія айсберга — більше між рядків.",
+  "ремарк": "Пиши в стилі Ремарка: трохи меланхолії і роздумів про швидкоплинність, кохання варте того щоб за нього триматися.",
+  "байрон": "Пиши в стилі Байрона: пристрасть і романтизм, драматизм і бунтарський дух, піднесені образи.",
+  "маркес": "Пиши в стилі Маркеса: магічний реалізм, чуттєві деталі, реальне переплітається з неймовірним."
+};
 
+// ── STATE ──
 let genre = '';
 let textStyle = '';
 let writer = '';
@@ -474,17 +316,20 @@ let hist = JSON.parse(localStorage.getItem('gw_h') || '[]');
 // ── PICKS ──
 function pick(el) {
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on'); genre = el.dataset.v;
+  el.classList.add('on');
+  genre = el.dataset.v;
 }
 function pickStyle(el) {
   if (el.classList.contains('on')) { el.classList.remove('on'); textStyle = ''; return; }
   document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on'); textStyle = el.dataset.s;
+  el.classList.add('on');
+  textStyle = el.dataset.v;
 }
 function pickWriter(el) {
   if (el.classList.contains('on')) { el.classList.remove('on'); writer = ''; return; }
   document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on'); writer = el.dataset.style;
+  el.classList.add('on');
+  writer = el.dataset.v;
 }
 
 // ── MODAL ──
@@ -504,324 +349,254 @@ function saveKey() {
 }
 
 // ── HOLIDAYS ──
-function getEaster(year) {
-  const a = year%19, b = Math.floor(year/100), c = year%100;
-  const d = Math.floor(b/4), e = b%4, f = Math.floor((b+8)/25);
-  const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15)%30;
-  const i = Math.floor(c/4), k = c%4, l = (32+2*e+2*i-h-k)%7;
-  const m = Math.floor((a+11*h+22*l)/451);
-  const month = Math.floor((h+l-7*m+114)/31);
-  const day = ((h+l-7*m+114)%31)+1;
-  return { month, day };
+function getEaster(y) {
+  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+  return {month,day};
 }
-
-function getUkrHolidays(year) {
-  const easter = getEaster(year);
-  const easterDate = new Date(year, easter.month-1, easter.day);
-  const trinity = new Date(easterDate); trinity.setDate(trinity.getDate()+49);
-  return [
-    {m:1,d:1,name:'Новий рік',icon:'🎆'},
-    {m:1,d:7,name:'Різдво (юліан.)',icon:'⛪'},
-    {m:1,d:19,name:'Водохреще',icon:'💧'},
-    {m:3,d:8,name:'Жіночий день',icon:'💐'},
-    {m:5,d:1,name:'День праці',icon:'⚒️'},
-    {m:5,d:9,name:'День перемоги над нацизмом',icon:'🕊️'},
-    {m:6,d:28,name:'День Конституції',icon:'📜'},
-    {m:7,d:28,name:'День Державності',icon:'🏛️'},
-    {m:8,d:19,name:'Яблучний Спас',icon:'🍎'},
-    {m:8,d:24,name:'День Незалежності України',icon:'🇺🇦'},
-    {m:10,d:14,name:'День захисників / Покрова',icon:'🛡️'},
-    {m:12,d:25,name:'Різдво Христове',icon:'🎄'},
-    {m:easter.month,d:easter.day,name:'Великдень',icon:'🐣'},
-    {m:trinity.getMonth()+1,d:trinity.getDate(),name:'Трійця',icon:'🌿'},
-  ];
-}
-
 function getTodayHoliday() {
-  const now = new Date();
-  return getUkrHolidays(now.getFullYear()).find(h => h.m===now.getMonth()+1 && h.d===now.getDate()) || null;
+  const now=new Date(),m=now.getMonth()+1,d=now.getDate(),y=now.getFullYear();
+  const e=getEaster(y),eD=new Date(y,e.month-1,e.day),tr=new Date(eD);
+  tr.setDate(tr.getDate()+49);
+  const all=[
+    {m:1,d:1,name:'Новий рік',icon:'🎆'},{m:1,d:7,name:'Різдво (юліан.)',icon:'⛪'},
+    {m:1,d:19,name:'Водохреще',icon:'💧'},{m:3,d:8,name:'Жіночий день',icon:'💐'},
+    {m:5,d:1,name:'День праці',icon:'⚒️'},{m:5,d:9,name:'День перемоги над нацизмом',icon:'🕊️'},
+    {m:6,d:28,name:'День Конституції',icon:'📜'},{m:7,d:28,name:'День Державності',icon:'🏛️'},
+    {m:8,d:19,name:'Яблучний Спас',icon:'🍎'},{m:8,d:24,name:'День Незалежності',icon:'🇺🇦'},
+    {m:10,d:14,name:'День захисників / Покрова',icon:'🛡️'},{m:12,d:25,name:'Різдво Христове',icon:'🎄'},
+    {m:e.month,d:e.day,name:'Великдень',icon:'🐣'},
+    {m:tr.getMonth()+1,d:tr.getDate(),name:'Трійця',icon:'🌿'},
+  ];
+  return all.find(h => h.m===m && h.d===d) || null;
 }
-
 function getTimeOfDay() {
-  const h = new Date().getHours();
-  if (h>=5 && h<12) return {label:'Доброго ранку', icon:'🌅', val:'ранок'};
-  if (h>=12 && h<17) return {label:'Доброго дня', icon:'☀️', val:'день'};
-  if (h>=17 && h<22) return {label:'Доброго вечора', icon:'🌆', val:'вечір'};
-  return {label:'Доброї ночі', icon:'🌙', val:'ніч'};
+  const h=new Date().getHours();
+  if(h>=5&&h<12) return {label:'Доброго ранку',icon:'🌅'};
+  if(h>=12&&h<17) return {label:'Доброго дня',icon:'☀️'};
+  if(h>=17&&h<22) return {label:'Доброго вечора',icon:'🌆'};
+  return {label:'Доброї ночі',icon:'🌙'};
 }
-
 function initQuickChips() {
-  const tod = getTimeOfDay();
-  const holiday = getTodayHoliday();
-  const wrap = document.getElementById('quickChips');
-  if (!wrap) return;
-
-  const tc = document.createElement('span');
-  tc.className = 'qchip';
-  tc.innerHTML = tod.icon + ' ' + tod.label;
-  tc.onclick = () => {
-    document.getElementById('occasion').value = tod.label;
-    document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
-  };
+  const tod=getTimeOfDay(), holiday=getTodayHoliday();
+  const wrap=document.getElementById('quickChips');
+  if(!wrap) return;
+  const tc=document.createElement('span');
+  tc.className='qchip';
+  tc.innerHTML=tod.icon+' '+tod.label;
+  tc.onclick=()=>{ document.getElementById('occasion').value=tod.label; document.querySelector('.card').scrollIntoView({behavior:'smooth'}); };
   wrap.appendChild(tc);
-
-  if (holiday) {
-    const hc = document.createElement('span');
-    hc.className = 'qchip holiday';
-    hc.innerHTML = holiday.icon + ' ' + holiday.name;
-    hc.onclick = () => {
-      document.getElementById('occasion').value = holiday.name;
-      document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
-    };
+  if(holiday) {
+    const hc=document.createElement('span');
+    hc.className='qchip holiday';
+    hc.innerHTML=holiday.icon+' '+holiday.name;
+    hc.onclick=()=>{ document.getElementById('occasion').value=holiday.name; document.querySelector('.card').scrollIntoView({behavior:'smooth'}); };
     wrap.appendChild(hc);
   }
 }
 
+// ── AUTO RESIZE ──
+function autoResize(el) {
+  el.style.height='auto';
+  el.style.height=el.scrollHeight+'px';
+}
+
 // ── GENERATE ──
 async function generate() {
-  const key = localStorage.getItem('gw_key');
-  if (!key) { openModal(); return; }
+  const key=localStorage.getItem('gw_key');
+  if(!key) { openModal(); return; }
 
-  const occ = document.getElementById('occasion').value;
-  const rec = document.getElementById('recipient').value.trim();
-  const fmt = document.getElementById('format').value;
-  const det = document.getElementById('details').value.trim();
-  const tod = getTimeOfDay();
+  const occ=document.getElementById('occasion').value;
+  const rec=document.getElementById('recipient').value.trim();
+  const fmt=document.getElementById('format').value;
+  const det=document.getElementById('details').value.trim();
+  const tod=getTimeOfDay();
+  const greetings=['Доброго ранку','Доброго дня','Доброго вечора','Доброї ночі'];
 
-  const greetingOccasions = ['Доброго ранку','Доброго дня','Доброго вечора','Доброї ночі'];
+  const promptParts=[BASE_PROMPT];
+  if(genre && GENRE[genre]) promptParts.push('ЖАНР/НАСТРІЙ: '+GENRE[genre]);
+  if(textStyle && STYLE[textStyle]) promptParts.push('СТИЛЬ ПОДАЧІ: '+STYLE[textStyle]);
+  if(writer && WRITER[writer]) promptParts.push('СТИЛЬ ПИСЬМА: '+WRITER[writer]);
 
-  // Build rich prompt from selected options
-  const genreInstruction = genre && GENRE_PROMPTS[genre] ? GENRE_PROMPTS[genre] : '';
-  const styleInstruction = textStyle && STYLE_PROMPTS[textStyle] ? STYLE_PROMPTS[textStyle] : '';
-  const writerInstruction = writer && WRITER_PROMPTS[writer] ? WRITER_PROMPTS[writer] : '';
+  const contextParts=[];
+  if(occ) contextParts.push('Привід: '+occ);
+  if(rec) contextParts.push('Адресат: '+rec);
+  if(fmt) contextParts.push('Формат: '+fmt);
+  if(occ && greetings.includes(occ)) contextParts.push('Привітання: '+tod.label);
+  if(det) contextParts.push('Деталі: '+det);
 
-  const parts = [
-    occ && `Привід: ${occ}`,
-    rec && `Адресат: ${rec}`,
-    fmt && `Формат: ${fmt}`,
-    genre && `Жанр/настрій: ${genre}. ${genreInstruction}`,
-    textStyle && `Стиль подачі: ${styleInstruction}`,
-    writer && `Стиль письма: ${writerInstruction}`,
-    occ && greetingOccasions.includes(occ) && `Використай привітання: ${tod.label}`,
-    det && `Деталі про ситуацію/людину: ${det}`,
-    'Генеруй ЗАВЕРШЕНИЙ текст. Не обривай думку.',
-  ].filter(Boolean);
+  const fullPrompt=promptParts.join('\n\n')+'\n\n---\n'+contextParts.join('\n');
 
-  if (!parts.length) { document.getElementById('occasion').focus(); return; }
+  if(!contextParts.length) { document.getElementById('occasion').focus(); return; }
 
-  const btn = document.getElementById('genBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<div style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></div>&nbsp;Пишу...';
+  const btn=document.getElementById('genBtn');
+  btn.disabled=true;
+  btn.innerHTML='<div style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></div>&nbsp;Пишу...';
 
-  document.getElementById('resultArea').innerHTML = `
-    <div class="loading-card">
-      <div class="spinner"></div>
-      <div class="loading-label">Підбираю слова...</div>
-    </div>`;
+  document.getElementById('resultArea').innerHTML='<div class="loading-card"><div class="spinner"></div><div class="loading-label">Підбираю слова...</div></div>';
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYS }] },
-        contents: [{ role: 'user', parts: [{ text: parts.join('\n') }] }],
-        generationConfig: { temperature: 1.0, maxOutputTokens: 1024 },
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' }
+    const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{role:'user',parts:[{text:fullPrompt}]}],
+        generationConfig:{temperature:1.1,maxOutputTokens:1024},
+        safetySettings:[
+          {category:'HARM_CATEGORY_HARASSMENT',threshold:'BLOCK_ONLY_HIGH'},
+          {category:'HARM_CATEGORY_HATE_SPEECH',threshold:'BLOCK_ONLY_HIGH'},
+          {category:'HARM_CATEGORY_SEXUALLY_EXPLICIT',threshold:'BLOCK_ONLY_HIGH'},
+          {category:'HARM_CATEGORY_DANGEROUS_CONTENT',threshold:'BLOCK_ONLY_HIGH'}
         ]
       })
     });
-
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `HTTP ${res.status}`); }
-
-    const data = await res.json();
-    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) throw new Error('Порожня відповідь від API');
-
-    const finishReason = data.candidates?.[0]?.finishReason;
-    if (finishReason === 'MAX_TOKENS') {
-      const lastDot = Math.max(text.lastIndexOf('.'), text.lastIndexOf('!'), text.lastIndexOf('?'));
-      if (lastDot > text.length * 0.5) text = text.slice(0, lastDot + 1);
+    if(!res.ok) { const e=await res.json(); throw new Error(e.error?.message||'HTTP '+res.status); }
+    const data=await res.json();
+    let text=data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text) throw new Error('Порожня відповідь від API');
+    const fr=data.candidates?.[0]?.finishReason;
+    if(fr==='MAX_TOKENS') {
+      const last=Math.max(text.lastIndexOf('.'),text.lastIndexOf('!'),text.lastIndexOf('?'));
+      if(last>text.length*.5) text=text.slice(0,last+1);
     }
-
-    const entry = {
-      id: Date.now(), text, occ, rec, fmt, genre, det,
-      date: new Date().toLocaleDateString('uk-UA', {day:'numeric', month:'short'})
-    };
+    const entry={id:Date.now(),text,occ,rec,fmt,genre,det,date:new Date().toLocaleDateString('uk-UA',{day:'numeric',month:'short'})};
     hist.unshift(entry);
-    if (hist.length > 40) hist.pop();
-    localStorage.setItem('gw_h', JSON.stringify(hist));
-
+    if(hist.length>40) hist.pop();
+    localStorage.setItem('gw_h',JSON.stringify(hist));
     showResult(entry);
     renderHist();
-    setTimeout(() => { const ta = document.querySelector('.edit-area'); if(ta) autoResize(ta); }, 50);
-
+    setTimeout(()=>{ const ta=document.querySelector('.edit-area'); if(ta) autoResize(ta); },50);
   } catch(e) {
-    document.getElementById('resultArea').innerHTML = `
-      <div class="result-card">
-        <div style="padding:24px 28px;color:#c0392b;font-size:14px">⚠ ${e.message}</div>
-      </div>`;
+    document.getElementById('resultArea').innerHTML='<div class="result-card"><div style="padding:24px 28px;color:#c0392b;font-size:14px">⚠ '+e.message+'</div></div>';
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/></svg> Згенерувати текст';
+    btn.disabled=false;
+    btn.innerHTML='<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/></svg> Згенерувати текст';
   }
 }
 
 // ── SHOW RESULT ──
 function showResult(e) {
-  const tags = [
-    e.occ && `<span class="rtag">${H(e.occ)}</span>`,
-    e.genre && `<span class="rtag">${H(e.genre)}</span>`,
-    e.fmt && `<span class="rtag">${H(e.fmt)}</span>`,
+  const tags=[
+    e.occ&&'<span class="rtag">'+H(e.occ)+'</span>',
+    e.genre&&'<span class="rtag">'+H(e.genre)+'</span>',
+    e.fmt&&'<span class="rtag">'+H(e.fmt)+'</span>',
   ].filter(Boolean).join('');
-
-  document.getElementById('resultArea').innerHTML = `
-    <div class="result-card">
-      <div class="rhead">
-        <div class="rtags">${tags}</div>
-        <span style="font-size:12px;color:var(--text3)">${e.date}</span>
-      </div>
-      <div class="rbody">
-        <textarea class="edit-area" id="rt${e.id}" oninput="autoResize(this)">${H(e.text)}</textarea>
-        <div class="edit-hint" onclick="document.getElementById('rt${e.id}').focus()">✏️ Натисни щоб редагувати</div>
-        <div class="refine-row">
-          <input class="refine-input" id="ri${e.id}" autocomplete="off" data-lpignore="true"
-            placeholder="Зроби коротше / додай гумору / більш пікантно..." />
-          <button class="refine-btn" id="rb${e.id}" onclick="refine(${e.id})">↻ Переписати</button>
-        </div>
-      </div>
-      <div class="rfoot">
-        <button class="gbtn" id="cp${e.id}" onclick="copyResult(${e.id})">📋 Копіювати</button>
-        <button class="gbtn" onclick="rerun(${e.id})">↺ Ще раз</button>
-      </div>
-    </div>`;
+  document.getElementById('resultArea').innerHTML=
+    '<div class="result-card">'+
+    '<div class="rhead"><div class="rtags">'+tags+'</div><span style="font-size:12px;color:var(--text3)">'+e.date+'</span></div>'+
+    '<div class="rbody">'+
+    '<textarea class="edit-area" id="rt'+e.id+'" oninput="autoResize(this)">'+H(e.text)+'</textarea>'+
+    '<div class="edit-hint" onclick="document.getElementById(\'rt'+e.id+'\').focus()">✏️ Натисни щоб редагувати</div>'+
+    '<div class="refine-row">'+
+    '<input class="refine-input" id="ri'+e.id+'" autocomplete="off" data-lpignore="true" placeholder="Зроби коротше / додай гумору / більш пікантно..." />'+
+    '<button class="refine-btn" id="rb'+e.id+'" onclick="refine('+e.id+')">↻ Переписати</button>'+
+    '</div></div>'+
+    '<div class="rfoot">'+
+    '<button class="gbtn" id="cp'+e.id+'" onclick="copyResult('+e.id+')">📋 Копіювати</button>'+
+    '<button class="gbtn" onclick="rerun('+e.id+')">↺ Ще раз</button>'+
+    '</div></div>';
 }
 
 // ── COPY ──
 function copyResult(id) {
-  const el = document.getElementById('rt'+id);
-  if (!el) return;
-  navigator.clipboard.writeText(el.value || el.textContent).then(() => {
-    const btn = document.getElementById('cp'+id);
-    btn.textContent = '✓ Скопійовано';
+  const el=document.getElementById('rt'+id);
+  if(!el) return;
+  navigator.clipboard.writeText(el.value||el.textContent).then(()=>{
+    const btn=document.getElementById('cp'+id);
+    btn.textContent='✓ Скопійовано';
     btn.classList.add('ok');
-    setTimeout(() => { btn.innerHTML = '📋 Копіювати'; btn.classList.remove('ok'); }, 2500);
+    setTimeout(()=>{ btn.innerHTML='📋 Копіювати'; btn.classList.remove('ok'); },2500);
   });
 }
 
 // ── REFINE ──
 async function refine(id) {
-  const key = localStorage.getItem('gw_key');
-  if (!key) { openModal(); return; }
-  const ta = document.getElementById('rt'+id);
-  const inp = document.getElementById('ri'+id);
-  const btn = document.getElementById('rb'+id);
-  if (!ta || !inp || !inp.value.trim()) return;
-
-  const currentText = ta.value;
-  const instruction = inp.value.trim();
-
-  btn.disabled = true; btn.textContent = '...';
-
+  const key=localStorage.getItem('gw_key');
+  if(!key) { openModal(); return; }
+  const ta=document.getElementById('rt'+id);
+  const inp=document.getElementById('ri'+id);
+  const btn=document.getElementById('rb'+id);
+  if(!ta||!inp||!inp.value.trim()) return;
+  const currentText=ta.value;
+  const instruction=inp.value.trim();
+  btn.disabled=true; btn.textContent='...';
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: `Ось текст:\n\n${currentText}\n\nЗавдання: ${instruction}\n\nПерепиши текст згідно завдання. Поверни ЛИШЕ новий текст, без пояснень. Мова: українська.` }]}],
-        generationConfig: { temperature: 1.0, maxOutputTokens: 1024 },
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' }
-        ]
+    const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{role:'user',parts:[{text:'Ось текст:\n\n'+currentText+'\n\nЗавдання: '+instruction+'\n\nПерепиши згідно завдання. Лише новий текст без пояснень. Мова: українська.'}]}],
+        generationConfig:{temperature:1.0,maxOutputTokens:1024},
+        safetySettings:[{category:'HARM_CATEGORY_SEXUALLY_EXPLICIT',threshold:'BLOCK_ONLY_HIGH'}]
       })
     });
-    const data = await res.json();
-    const newText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (newText) { ta.value = newText; inp.value = ''; }
+    const data=await res.json();
+    const newText=data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(newText) { ta.value=newText; inp.value=''; autoResize(ta); }
   } catch(e) { console.error(e); }
-  finally { btn.disabled = false; btn.textContent = '↻ Переписати'; }
+  finally { btn.disabled=false; btn.textContent='↻ Переписати'; }
 }
 
 // ── RERUN ──
 async function rerun(id) {
-  const e = hist.find(x => x.id === id);
-  if (!e) return;
-  document.getElementById('occasion').value = e.occ;
-  document.getElementById('recipient').value = e.rec;
-  document.getElementById('format').value = e.fmt;
-  document.getElementById('details').value = e.det;
-  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
-  genre = e.genre;
-  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
-  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
+  const e=hist.find(x=>x.id===id);
+  if(!e) return;
+  document.getElementById('occasion').value=e.occ;
+  document.getElementById('recipient').value=e.rec;
+  document.getElementById('format').value=e.fmt;
+  document.getElementById('details').value=e.det;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.v===e.genre));
+  genre=e.genre;
+  document.querySelectorAll('.style-chip').forEach(c=>c.classList.remove('on')); textStyle='';
+  document.querySelectorAll('.writer-chip').forEach(c=>c.classList.remove('on')); writer='';
   await generate();
 }
 
 // ── HISTORY ──
 function renderHist() {
-  const sec = document.getElementById('hsec');
-  const grid = document.getElementById('hgrid');
-  if (!hist.length) { sec.style.display = 'none'; return; }
-  sec.style.display = 'block';
-  grid.innerHTML = hist.slice(0,6).map(e => `
-    <div class="hitem" onclick="loadH(${e.id})">
-      <div class="hprev">${H(e.text)}</div>
-      <div class="hmeta">
-        <span>${e.date}</span>
-        ${e.genre ? `<span>· ${e.genre}</span>` : ''}
-        ${e.occ ? `<span>· ${e.occ}</span>` : ''}
-      </div>
-      <button class="hdel" onclick="delH(event,${e.id})">✕</button>
-    </div>`).join('');
+  const sec=document.getElementById('hsec'), grid=document.getElementById('hgrid');
+  if(!hist.length) { sec.style.display='none'; return; }
+  sec.style.display='block';
+  grid.innerHTML=hist.slice(0,6).map(e=>
+    '<div class="hitem" onclick="loadH('+e.id+')">'+
+    '<div class="hprev">'+H(e.text)+'</div>'+
+    '<div class="hmeta"><span>'+e.date+'</span>'+(e.genre?'<span>· '+e.genre+'</span>':'')+(e.occ?'<span>· '+e.occ+'</span>':'')+'</div>'+
+    '<button class="hdel" onclick="delH(event,'+e.id+')">✕</button>'+
+    '</div>'
+  ).join('');
 }
-
 function loadH(id) {
-  const e = hist.find(x => x.id === id);
-  if (!e) return;
-  document.getElementById('occasion').value = e.occ;
-  document.getElementById('recipient').value = e.rec;
-  document.getElementById('format').value = e.fmt;
-  document.getElementById('details').value = e.det;
-  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
-  genre = e.genre;
-  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
-  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
+  const e=hist.find(x=>x.id===id);
+  if(!e) return;
+  document.getElementById('occasion').value=e.occ;
+  document.getElementById('recipient').value=e.rec;
+  document.getElementById('format').value=e.fmt;
+  document.getElementById('details').value=e.det;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.v===e.genre));
+  genre=e.genre;
+  document.querySelectorAll('.style-chip').forEach(c=>c.classList.remove('on')); textStyle='';
+  document.querySelectorAll('.writer-chip').forEach(c=>c.classList.remove('on')); writer='';
   showResult(e);
-  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(()=>{ const ta=document.querySelector('.edit-area'); if(ta) autoResize(ta); },50);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function delH(ev, id) {
+function delH(ev,id) {
   ev.stopPropagation();
-  hist = hist.filter(x => x.id !== id);
-  localStorage.setItem('gw_h', JSON.stringify(hist));
+  hist=hist.filter(x=>x.id!==id);
+  localStorage.setItem('gw_h',JSON.stringify(hist));
   renderHist();
 }
-
 function H(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
-}
-
-// Call autoResize after result renders
-const _origShowResult = showResult;
-
 // ── INIT ──
-if (!localStorage.getItem('gw_key') && localStorage.getItem('gkey')) {
-  localStorage.setItem('gw_key', localStorage.getItem('gkey'));
+if(!localStorage.getItem('gw_key')&&localStorage.getItem('gkey')) {
+  localStorage.setItem('gw_key',localStorage.getItem('gkey'));
 }
 initQuickChips();
 renderHist();
-if (hist.length > 0) { showResult(hist[0]); }
-if (!localStorage.getItem('gw_key')) setTimeout(openModal, 700);
+if(hist.length>0) { showResult(hist[0]); setTimeout(()=>{ const ta=document.querySelector('.edit-area'); if(ta) autoResize(ta); },50); }
+if(!localStorage.getItem('gw_key')) setTimeout(openModal,700);
 </script>
 </body>
 </html>
