@@ -246,6 +246,40 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 .qchip.holiday { background: #fff8e7; border-color: #f0c040; color: #7a5c00; }
 .qchip.holiday:hover { background: #fff0c0; border-color: #e0a800; }
 
+.edit-area {
+  width: 100%; min-height: 80px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; line-height: 1.72; color: var(--text);
+  letter-spacing: -0.2px; white-space: pre-wrap;
+  border: none; outline: none; background: transparent;
+  resize: none; padding: 0;
+}
+.edit-area:focus { outline: none; }
+.edit-hint {
+  font-size: 11px; color: var(--text3); margin-top: 8px;
+  font-style: italic;
+}
+.refine-row {
+  display: flex; gap: 8px; margin-top: 12px;
+  border-top: 1px solid var(--off); padding-top: 12px;
+}
+.refine-input {
+  flex: 1; background: var(--off); border: none;
+  border-radius: 10px; padding: 9px 12px;
+  font-size: 13px; font-family: inherit; color: var(--text);
+  outline: none; transition: box-shadow .2s;
+}
+.refine-input:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.15); background: #fff; }
+.refine-btn {
+  background: var(--text); color: var(--white);
+  border: none; border-radius: 10px;
+  padding: 9px 14px; font-size: 13px; font-weight: 500;
+  font-family: inherit; cursor: pointer; white-space: nowrap;
+  transition: background .18s;
+}
+.refine-btn:hover { background: #333; }
+
+
 .writers-wrap { margin-top: 4px; }
 .writer-chip {
   display: inline-flex; align-items: center; gap: 6px;
@@ -270,6 +304,36 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 .style-chip.on { background: #059669; border-color: #059669; color: white; }
 
 
+
+
+.edit-area {
+  width: 100%; min-height: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; line-height: 1.72; color: var(--text);
+  letter-spacing: -0.2px; white-space: pre-wrap;
+  border: none; outline: none; background: transparent;
+  resize: none; padding: 0; cursor: text;
+}
+.edit-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
+.refine-row {
+  display: flex; gap: 8px; margin-top: 12px;
+  border-top: 1px solid var(--off); padding-top: 12px;
+}
+.refine-input {
+  flex: 1; background: var(--off); border: none;
+  border-radius: 10px; padding: 9px 12px;
+  font-size: 13px; font-family: inherit; color: var(--text);
+  outline: none; transition: box-shadow .2s;
+}
+.refine-input:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.15); background: #fff; }
+.refine-btn {
+  background: var(--text); color: var(--white); border: none;
+  border-radius: 10px; padding: 9px 14px; font-size: 13px;
+  font-weight: 500; font-family: inherit; cursor: pointer;
+  white-space: nowrap; transition: background .18s;
+}
+.refine-btn:hover { background: #333; }
+.refine-btn:disabled { opacity: .5; cursor: not-allowed; }
 
 .hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
@@ -687,21 +751,64 @@ function showResult(e) {
         <div class="rtext" id="rt${e.id}">${H(e.text)}</div>
       </div>
       <div class="rfoot">
-        <button class="gbtn" id="cp${e.id}" onclick="copy(${e.id})">📋 Копіювати</button>
+        <button class="gbtn" id="cp${e.id}" onclick="copyEdit(${e.id})">📋 Копіювати</button>
         <button class="gbtn" onclick="rerun(${e.id})">↺ Ще раз</button>
       </div>
     </div>`;
 }
 
-function copy(id) {
+function copyEdit(id) {
   const el = document.getElementById('rt'+id);
   if (!el) return;
-  navigator.clipboard.writeText(el.textContent).then(() => {
+  const text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('cp'+id);
     btn.textContent = '✓ Скопійовано';
     btn.classList.add('ok');
     setTimeout(() => { btn.innerHTML = '📋 Копіювати'; btn.classList.remove('ok'); }, 2500);
   });
+}
+
+async function refine(id) {
+  const key = localStorage.getItem('gw_key');
+  if (!key) { openModal(); return; }
+  const ta = document.getElementById('rt'+id);
+  const inp = document.getElementById('refineInput'+id);
+  const btn = document.getElementById('refineBtn'+id);
+  if (!ta || !inp || !inp.value.trim()) return;
+
+  const currentText = ta.value;
+  const instruction = inp.value.trim();
+
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const res = await fetch(\`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=\${key}\`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text:
+          \`Ось текст:\n\n\${currentText}\n\nЗавдання: \${instruction}\n\nПерепиши текст згідно завдання. Поверни ЛИШЕ новий текст, без пояснень. Мова: українська.\`
+        }]}],
+        generationConfig: { temperature: 1.0, maxOutputTokens: 1024 },
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' }
+        ]
+      })
+    });
+    const data = await res.json();
+    const newText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (newText) { ta.value = newText; inp.value = ''; }
+  } catch(e) {
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↻ Переписати';
+  }
 }
 
 async function rerun(id) {
