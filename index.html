@@ -590,15 +590,21 @@ async function generate() {
 
   const greetingOccasions = ['Доброго ранку','Доброго дня','Доброго вечора','Доброї ночі'];
 
+  // Build rich prompt from selected options
+  const genreInstruction = genre && GENRE_PROMPTS[genre] ? GENRE_PROMPTS[genre] : '';
+  const styleInstruction = textStyle && STYLE_PROMPTS[textStyle] ? STYLE_PROMPTS[textStyle] : '';
+  const writerInstruction = writer && WRITER_PROMPTS[writer] ? WRITER_PROMPTS[writer] : '';
+
   const parts = [
     occ && `Привід: ${occ}`,
     rec && `Адресат: ${rec}`,
     fmt && `Формат: ${fmt}`,
-    genre && `Жанр: ${genre}`,
-    textStyle && `Стиль подачі: ${textStyle}`,
-    writer && `Стиль написання: пиши в стилі ${writer}`,
+    genre && `Жанр/настрій: ${genre}. ${genreInstruction}`,
+    textStyle && `Стиль подачі: ${styleInstruction}`,
+    writer && `Стиль письма: ${writerInstruction}`,
     occ && greetingOccasions.includes(occ) && `Використай привітання: ${tod.label}`,
-    det && `Деталі: ${det}`,
+    det && `Деталі про ситуацію/людину: ${det}`,
+    'Генеруй ЗАВЕРШЕНИЙ текст. Не обривай думку.',
   ].filter(Boolean);
 
   if (!parts.length) { document.getElementById('occasion').focus(); return; }
