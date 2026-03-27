@@ -6,30 +6,20 @@
 <title>Ghostwriter — Автор-привид</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --white: #ffffff;
-  --off: #f5f5f7;
-  --mid: #d2d2d7;
-  --text: #1d1d1f;
-  --text2: #6e6e73;
-  --text3: #86868b;
-  --blue: #0071e3;
-  --blue-h: #0077ed;
+  --white: #ffffff; --off: #f5f5f7; --mid: #d2d2d7;
+  --text: #1d1d1f; --text2: #6e6e73; --text3: #86868b;
+  --blue: #0071e3; --blue-h: #0077ed;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  background: var(--white);
-  color: var(--text);
-  min-height: 100vh;
+  background: var(--white); color: var(--text); min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
+/* NAV */
 nav {
   position: sticky; top: 0; z-index: 100;
   background: rgba(255,255,255,0.85);
@@ -37,204 +27,32 @@ nav {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-
 .nav-inner {
-  max-width: 980px; margin: 0 auto;
-  padding: 0 22px; height: 52px;
-  display: flex; align-items: center; justify-content: space-between;
+  max-width: 760px; margin: 0 auto; padding: 0 22px;
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
 }
-
-.nav-brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.3px;
-}
-
-.nav-key {
-  font-size: 13px; color: var(--blue);
-  background: none; border: none; cursor: pointer; font-family: inherit;
-}
+.nav-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+.nav-key { font-size: 13px; color: var(--blue); background: none; border: none; cursor: pointer; font-family: inherit; }
 .nav-key:hover { text-decoration: underline; }
 
+/* HERO */
 .hero {
-  text-align: center; padding: 90px 22px 70px;
+  text-align: center; padding: 70px 22px 50px;
   max-width: 760px; margin: 0 auto;
   animation: up 0.7s ease both;
 }
-
-@keyframes up {
-  from { opacity:0; transform:translateY(24px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-.eyebrow {
-  font-size: 13px; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
-}
-
+@keyframes up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(44px,7vw,72px); font-weight: 700;
-  line-height: 1.05; letter-spacing: -1.5px; color: var(--text); margin-bottom: 18px;
+  font-size: clamp(40px,7vw,68px); font-weight: 700;
+  line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 16px;
 }
-
 .hero-title em { font-style: italic; color: var(--text2); }
+.hero-sub { font-size: 17px; line-height: 1.5; color: var(--text2); font-weight: 300; }
 
-.hero-sub {
-  font-size: 19px; line-height: 1.5; color: var(--text2);
-  font-weight: 300; letter-spacing: -0.2px;
-}
-
-.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
-
-.card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; overflow: hidden; margin-bottom: 16px;
-  transition: box-shadow .3s;
-}
-.card:hover { box-shadow: 0 8px 40px rgba(0,0,0,.08); }
-
-.sec { padding: 28px 32px; border-bottom: 1px solid var(--off); }
-.sec:last-child { border-bottom: none; }
-
-.sec-label {
-  font-size: 11px; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--text3); margin-bottom: 16px;
-}
-
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-size: 13px; font-weight: 500; color: var(--text2); }
-
-.field input, .field select {
-  background: var(--off); border: none; border-radius: 10px;
-  padding: 11px 14px; font-size: 15px; color: var(--text);
-  font-family: inherit; outline: none;
-  transition: background .2s, box-shadow .2s;
-  -webkit-appearance: none; appearance: none; width: 100%;
-}
-
-.field input:focus, .field select:focus {
-  background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2);
-}
-
-.sw { position: relative; }
-.sw::after {
-  content: ''; position: absolute; right: 14px; top: 50%;
-  transform: translateY(-50%);
-  width:0; height:0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--text3);
-  pointer-events: none;
-}
-
-.chips { display: flex; gap: 8px; flex-wrap: wrap; }
-
-.chip {
-  padding: 8px 16px; border-radius: 20px;
-  border: 1.5px solid var(--mid); font-size: 14px;
-  cursor: pointer; transition: all .18s;
-  background: var(--white); color: var(--text2);
-  font-family: inherit; user-select: none; letter-spacing: -0.1px;
-}
-.chip:hover { border-color: var(--blue); color: var(--blue); }
-.chip.on { background: var(--blue); border-color: var(--blue); color: white; }
-
-textarea {
-  width: 100%; background: var(--off); border: none;
-  border-radius: 12px; padding: 14px 16px;
-  font-size: 15px; font-family: inherit; color: var(--text);
-  resize: none; min-height: 90px; outline: none; line-height: 1.5;
-  transition: background .2s, box-shadow .2s;
-}
-textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
-
-.cta-wrap { padding: 20px 32px 28px; text-align: center; }
-
-.cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--blue); color: white; border: none;
-  border-radius: 980px; padding: 14px 36px;
-  font-size: 16px; font-weight: 500; font-family: inherit;
-  cursor: pointer; transition: background .2s, transform .15s;
-  letter-spacing: -0.2px;
-}
-.cta:hover { background: var(--blue-h); transform: scale(1.02); }
-.cta:active { transform: scale(.98); }
-.cta:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-
-.result-card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; overflow: hidden;
-  animation: up .4s ease both; margin-bottom: 16px;
-}
-
-.rhead {
-  padding: 20px 28px; border-bottom: 1px solid var(--off);
-  display: flex; align-items: center; justify-content: space-between;
-}
-
-.rtags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-.rtag {
-  font-size: 12px; font-weight: 500; background: var(--off);
-  color: var(--text2); padding: 4px 10px; border-radius: 6px;
-}
-
-.rbody { padding: 32px 36px; }
-
-.rtext {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px; line-height: 1.72; color: var(--text);
-  letter-spacing: -0.2px; white-space: pre-wrap;
-}
-
-.rfoot {
-  padding: 16px 28px; border-top: 1px solid var(--off);
-  display: flex; gap: 10px;
-}
-
-.gbtn {
-  background: var(--off); border: none; border-radius: 10px;
-  padding: 9px 16px; font-size: 13px; font-weight: 500;
-  cursor: pointer; font-family: inherit; color: var(--text);
-  transition: background .18s; display: flex; align-items: center; gap: 5px;
-}
-.gbtn:hover { background: var(--mid); }
-.gbtn.ok { color: #1d7d3e; }
-
-.loading-card {
-  background: var(--white); border: 1px solid var(--mid);
-  border-radius: 20px; padding: 52px 32px;
-  text-align: center; margin-bottom: 16px;
-}
-
-.spinner {
-  width: 36px; height: 36px;
-  border: 2.5px solid var(--mid); border-top-color: var(--blue);
-  border-radius: 50%; animation: spin .8s linear infinite;
-  margin: 0 auto 16px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.loading-label {
-  font-size: 15px; color: var(--text3);
-  font-family: 'Playfair Display', serif; font-style: italic;
-}
-
-.hsec { margin-top: 48px; }
-.htitle {
-  font-size: 22px; font-weight: 700; letter-spacing: -0.4px;
-  color: var(--text); margin-bottom: 14px;
-  font-family: 'Playfair Display', serif;
-}
-
-.quick-chips {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
+/* QUICK CHIPS */
+.quick-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
 .qchip {
   display: inline-flex; align-items: center; gap: 7px;
   background: var(--off); border: 1.5px solid var(--mid);
@@ -246,25 +64,133 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 .qchip.holiday { background: #fff8e7; border-color: #f0c040; color: #7a5c00; }
 .qchip.holiday:hover { background: #fff0c0; border-color: #e0a800; }
 
+/* WRAP */
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px 100px; }
 
+/* CARD */
+.card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; overflow: hidden; margin-bottom: 16px;
+  transition: box-shadow .3s;
+}
+.card:hover { box-shadow: 0 8px 40px rgba(0,0,0,.08); }
+.sec { padding: 24px 28px; border-bottom: 1px solid var(--off); }
+.sec:last-child { border-bottom: none; }
+.sec-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; }
 
+/* FIELDS */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13px; font-weight: 500; color: var(--text2); }
+.field input, .field select {
+  background: var(--off); border: none; border-radius: 10px;
+  padding: 11px 14px; font-size: 15px; color: var(--text);
+  font-family: inherit; outline: none;
+  transition: background .2s, box-shadow .2s;
+  -webkit-appearance: none; appearance: none; width: 100%;
+}
+.field input:focus, .field select:focus {
+  background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2);
+}
+.sw { position: relative; }
+.sw::after {
+  content: ''; position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  width:0; height:0;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 5px solid var(--text3); pointer-events: none;
+}
+
+/* CHIPS */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--mid);
+  font-size: 14px; cursor: pointer; transition: all .18s;
+  background: var(--white); color: var(--text2);
+  font-family: inherit; user-select: none;
+}
+.chip:hover { border-color: var(--blue); color: var(--blue); }
+.chip.on { background: var(--blue); border-color: var(--blue); color: white; }
+
+/* STYLE CHIPS */
+.style-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--white); border: 1.5px solid var(--mid);
+  border-radius: 20px; padding: 7px 14px;
+  font-size: 13px; font-family: inherit; color: var(--text2);
+  cursor: pointer; transition: all .18s; user-select: none;
+  margin: 0 6px 6px 0;
+}
+.style-chip:hover { border-color: #059669; color: #059669; background: #f0fdf4; }
+.style-chip.on { background: #059669; border-color: #059669; color: white; }
+
+/* WRITER CHIPS */
+.writer-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--white); border: 1.5px solid var(--mid);
+  border-radius: 20px; padding: 7px 14px;
+  font-size: 13px; font-family: inherit; color: var(--text2);
+  cursor: pointer; transition: all .18s; user-select: none;
+  margin: 0 6px 6px 0;
+}
+.writer-chip:hover { border-color: #8b5cf6; color: #8b5cf6; background: #faf5ff; }
+.writer-chip.on { background: #8b5cf6; border-color: #8b5cf6; color: white; }
+
+/* TEXTAREA */
+textarea {
+  width: 100%; background: var(--off); border: none;
+  border-radius: 12px; padding: 14px 16px;
+  font-size: 15px; font-family: inherit; color: var(--text);
+  resize: none; min-height: 90px; outline: none; line-height: 1.5;
+  transition: background .2s, box-shadow .2s;
+}
+textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
+
+/* CTA */
+.cta-wrap { padding: 20px 28px 26px; text-align: center; }
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: white; border: none;
+  border-radius: 980px; padding: 14px 36px;
+  font-size: 16px; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: background .2s, transform .15s;
+}
+.cta:hover { background: var(--blue-h); transform: scale(1.02); }
+.cta:active { transform: scale(.98); }
+.cta:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* RESULT */
+.result-card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; overflow: hidden;
+  animation: up .4s ease both; margin-bottom: 16px;
+}
+.rhead {
+  padding: 18px 26px; border-bottom: 1px solid var(--off);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.rtags { display: flex; gap: 6px; flex-wrap: wrap; }
+.rtag { font-size: 12px; font-weight: 500; background: var(--off); color: var(--text2); padding: 4px 10px; border-radius: 6px; }
+.rbody { padding: 28px 30px; }
 .edit-area {
   width: 100%; min-height: 60px;
   font-family: 'Playfair Display', serif;
-  font-size: 18px; line-height: 1.72; color: var(--text);
+  font-size: 19px; line-height: 1.72; color: var(--text);
   letter-spacing: -0.2px; white-space: pre-wrap;
-  border: none; outline: none; background: transparent;
-  resize: none; padding: 0; cursor: text;
+  border: 1px dashed transparent; border-radius: 8px;
+  outline: none; background: transparent;
+  resize: none; padding: 4px; cursor: text;
+  transition: border-color .2s;
 }
+.edit-area:focus { border-color: var(--mid); background: var(--off); }
 .edit-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
 .refine-row {
-  display: flex; gap: 8px; margin-top: 12px;
-  border-top: 1px solid var(--off); padding-top: 12px;
+  display: flex; gap: 8px; margin-top: 14px;
+  border-top: 1px solid var(--off); padding-top: 14px;
 }
 .refine-input {
-  flex: 1; background: var(--off); border: none;
-  border-radius: 10px; padding: 9px 12px;
-  font-size: 13px; font-family: inherit; color: var(--text);
+  flex: 1; background: var(--off); border: none; border-radius: 10px;
+  padding: 9px 12px; font-size: 13px; font-family: inherit; color: var(--text);
   outline: none; transition: box-shadow .2s;
 }
 .refine-input:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.15); background: #fff; }
@@ -276,34 +202,52 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 }
 .refine-btn:hover { background: #333; }
 .refine-btn:disabled { opacity: .5; cursor: not-allowed; }
+.rfoot { padding: 14px 26px; border-top: 1px solid var(--off); display: flex; gap: 10px; }
+.gbtn {
+  background: var(--off); border: none; border-radius: 10px;
+  padding: 9px 16px; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: inherit; color: var(--text);
+  transition: background .18s; display: flex; align-items: center; gap: 5px;
+}
+.gbtn:hover { background: var(--mid); }
+.gbtn.ok { color: #1d7d3e; }
 
+/* LOADING */
+.loading-card {
+  background: var(--white); border: 1px solid var(--mid);
+  border-radius: 20px; padding: 50px 32px; text-align: center; margin-bottom: 16px;
+}
+.spinner {
+  width: 34px; height: 34px; border: 2.5px solid var(--mid);
+  border-top-color: var(--blue); border-radius: 50%;
+  animation: spin .8s linear infinite; margin: 0 auto 14px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-label { font-size: 15px; color: var(--text3); font-family: 'Playfair Display', serif; font-style: italic; }
+
+/* HISTORY */
+.hsec { margin-top: 48px; }
+.htitle { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; font-family: 'Playfair Display', serif; margin-bottom: 14px; }
 .hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
 .hitem {
-  background: var(--off); border-radius: 14px;
-  padding: 18px 20px; cursor: pointer;
-  transition: background .18s; position: relative; overflow: hidden;
+  background: var(--off); border-radius: 14px; padding: 18px 20px;
+  cursor: pointer; transition: background .18s; position: relative; overflow: hidden;
 }
 .hitem:hover { background: #eaeaec; }
-
 .hprev {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px; line-height: 1.5; color: var(--text);
-  display: -webkit-box; -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px;
+  font-family: 'Playfair Display', serif; font-size: 14px; line-height: 1.5; color: var(--text);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px;
 }
-
 .hmeta { font-size: 11px; color: var(--text3); display: flex; gap: 8px; }
-
 .hdel {
-  position: absolute; top: 10px; right: 10px;
-  background: none; border: none; color: var(--mid);
-  font-size: 16px; cursor: pointer; opacity: 0;
+  position: absolute; top: 10px; right: 10px; background: none; border: none;
+  color: var(--mid); font-size: 16px; cursor: pointer; opacity: 0;
   transition: opacity .18s, color .18s; padding: 2px 4px;
 }
 .hitem:hover .hdel { opacity: 1; }
 .hdel:hover { color: #c0392b; }
 
+/* MODAL */
 .overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.4);
   backdrop-filter: blur(6px); z-index: 1000;
@@ -311,59 +255,45 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
   padding: 22px; animation: fadeIn .2s ease;
 }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
 .modal {
-  background: var(--white); border-radius: 20px;
-  padding: 36px 32px; max-width: 420px; width: 100%;
+  background: var(--white); border-radius: 20px; padding: 36px 32px;
+  max-width: 420px; width: 100%;
   box-shadow: 0 40px 100px rgba(0,0,0,.25);
   animation: mIn .3s cubic-bezier(.34,1.56,.64,1) both;
 }
-@keyframes mIn {
-  from { transform: scale(.92) translateY(20px); opacity:0; }
-  to   { transform: scale(1) translateY(0); opacity:1; }
-}
-
-.mtitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.4px;
-}
-
+@keyframes mIn { from { transform: scale(.92) translateY(20px); opacity:0; } to { transform: scale(1) translateY(0); opacity:1; } }
+.mtitle { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
 .msub { font-size: 14px; color: var(--text2); line-height: 1.5; margin-bottom: 22px; }
 .msub a { color: var(--blue); }
-
 .minput {
-  width: 100%; background: var(--off); border: none;
-  border-radius: 12px; padding: 13px 16px;
-  font-size: 14px; font-family: monospace; color: var(--text);
+  width: 100%; background: var(--off); border: none; border-radius: 12px;
+  padding: 13px 16px; font-size: 14px; font-family: inherit; color: var(--text);
   outline: none; margin-bottom: 12px; transition: box-shadow .2s;
 }
 .minput:focus { box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
-
 .mrow { display: flex; gap: 10px; }
-
 .msave {
   flex: 1; background: var(--blue); color: white; border: none;
   border-radius: 10px; padding: 13px; font-size: 15px;
   font-weight: 500; font-family: inherit; cursor: pointer; transition: background .18s;
 }
 .msave:hover { background: var(--blue-h); }
-
 .mcancel {
   background: var(--off); color: var(--text); border: none;
-  border-radius: 10px; padding: 13px 18px;
-  font-size: 15px; font-family: inherit; cursor: pointer; transition: background .18s;
+  border-radius: 10px; padding: 13px 18px; font-size: 15px;
+  font-family: inherit; cursor: pointer; transition: background .18s;
 }
 .mcancel:hover { background: var(--mid); }
 
 @media (max-width: 600px) {
-  .hero { padding: 60px 22px 50px; }
-  .sec { padding: 22px 20px; }
+  .hero { padding: 50px 22px 40px; }
+  .sec { padding: 20px 18px; }
   .row2 { grid-template-columns: 1fr; }
-  .cta-wrap { padding: 16px 20px 24px; }
-  .rbody { padding: 24px 22px; }
-  .rtext { font-size: 18px; }
+  .cta-wrap { padding: 16px 18px 22px; }
+  .rbody { padding: 22px 20px; }
+  .edit-area { font-size: 17px; }
   .hgrid { grid-template-columns: 1fr; }
-  .rhead { flex-wrap: wrap; gap: 10px; }
+  .rhead { flex-wrap: wrap; }
 }
 </style>
 </head>
@@ -377,13 +307,13 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 </nav>
 
 <section class="hero">
-  <p class="eyebrow">Powered by Claude AI</p>
+  <p class="eyebrow">Powered by Gemini AI</p>
   <h1 class="hero-title">Слова, які<br><em>звучать як ти.</em></h1>
   <p class="hero-sub">Введи параметри — отримай живий текст.<br>Без шаблонів. Без «щастя-здоров'я».</p>
 </section>
 
 <div class="wrap">
-  
+
   <div class="quick-chips" id="quickChips"></div>
 
   <div class="card">
@@ -403,26 +333,27 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
               <option>Закоханість</option>
               <option>Примирення</option>
               <option>Просто так</option>
+              <option>Вибачення</option>
+              <option>Успіх / Перемога</option>
+              <option>Розставання</option>
               <option>Доброго ранку</option>
               <option>Доброго дня</option>
               <option>Доброго вечора</option>
               <option>Доброї ночі</option>
-              <option>Вибачення</option>
-              <option>Успіх / Перемога</option>
-              <option>Розставання</option>
               <option disabled>── Державні свята ──</option>
               <option>День Незалежності України</option>
               <option>День захисників України</option>
               <option>День Конституції</option>
               <option>День праці</option>
               <option>День перемоги над нацизмом</option>
+              <option>Міжнародний жіночий день</option>
               <option disabled>── Церковні свята ──</option>
               <option>Різдво Христове</option>
               <option>Водохреще</option>
               <option>Великдень</option>
               <option>Трійця</option>
               <option>Покрова</option>
-              <option>Спас</option>
+              <option>Яблучний Спас</option>
             </select>
           </div>
         </div>
@@ -462,12 +393,6 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
     </div>
 
     <div class="sec">
-      <div class="sec-label">Деталі (необов'язково)</div>
-      <textarea id="details" placeholder="Спільні спогади, особливості людини, улюблені жарти — все це зробить текст живим..."></textarea>
-    </div>
-
-
-    <div class="sec">
       <div class="sec-label">Стиль подачі</div>
       <div>
         <span class="style-chip" data-s="розмовний — пиши як жива людина з телефону, просто і природно, без прикрас" onclick="pickStyle(this)">💬 Розмовний</span>
@@ -479,7 +404,7 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 
     <div class="sec">
       <div class="sec-label">Стиль автора (необов'язково)</div>
-      <div class="writers-wrap">
+      <div>
         <span class="writer-chip" data-style="Леся Українка: поетично, з внутрішньою силою і ліризмом, образи природи і волі" onclick="pickWriter(this)">🌿 Леся Українка</span>
         <span class="writer-chip" data-style="Ліна Костенко: лаконічно, філософська глибина, несподівані метафори, мінімум слів — максимум змісту" onclick="pickWriter(this)">✒️ Ліна Костенко</span>
         <span class="writer-chip" data-style="Сергій Жадан: сучасна міська поетика, сирість і відвертість, живі розмовні інтонації" onclick="pickWriter(this)">🏙️ Сергій Жадан</span>
@@ -489,11 +414,15 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
         <span class="writer-chip" data-style="Габріель Гарсіа Маркес: магічний реалізм, чуттєві деталі, час тече інакше, реальне переплітається з неймовірним" onclick="pickWriter(this)">🦋 Маркес</span>
       </div>
     </div>
+
+    <div class="sec">
+      <div class="sec-label">Деталі (необов'язково)</div>
+      <textarea id="details" placeholder="Спільні спогади, особливості людини, улюблені жарти — все це зробить текст живим..."></textarea>
+    </div>
+
     <div class="cta-wrap">
       <button class="cta" id="genBtn" onclick="generate()">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-          <path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/>
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L9.5 6H15L10.5 9.5L12 14L8 10.5L4 14L5.5 9.5L1 6H6.5L8 1Z" fill="currentColor"/></svg>
         Згенерувати текст
       </button>
     </div>
@@ -510,8 +439,8 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 <div class="overlay" id="modal" style="display:none" onclick="overlayClick(event)">
   <div class="modal">
     <div class="mtitle">Gemini API ключ</div>
-    <p class="msub">Отримай на <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>. Зберігається лише у твоєму браузері.</p>
-    <input autocomplete="off" type="text" class="minput" id="keyInput" data-lpignore="true" data-form-type="other" placeholder="AIza..." />
+    <p class="msub">Отримай безкоштовно на <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>. Зберігається лише у твоєму браузері.</p>
+    <input type="text" class="minput" id="keyInput" autocomplete="off" data-lpignore="true" placeholder="AIza..." />
     <div class="mrow">
       <button class="mcancel" onclick="closeModal()">Скасувати</button>
       <button class="msave" onclick="saveKey()">Зберегти</button>
@@ -520,7 +449,7 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 </div>
 
 <script>
-const SYS = `Ти — елітний ghostwriter, який спеціалізується на коротких формах. Твій стиль — суміш сучасного копірайтингу та художньої прози.
+const SYS = `Ти — елітний ghostwriter, який спеціалізується на коротких формах.
 
 Характер:
 - Анти-кліше: ненавидиш шаблони «щастя-здоров'я» та нудні листівки
@@ -529,59 +458,43 @@ const SYS = `Ти — елітний ghostwriter, який спеціалізу�
 
 Жанри:
 - Ніжно: турбота в деталях — «тепла кава», «сонний голос». Не «моє сонечко».
-- Іронічно: інтелектуальний стендап, легкий сарказм над ситуацією, повага до адресата.
-- Пікантно: недомовленість і метафори, що читаються між рядків. Естетично, не вульгарно.
-- Тост: коротка історія з несподіваним фіналом або думка для роздумів після ковтка.
+- Іронічно: інтелектуальний стендап, легкий сарказм, повага до адресата.
+- Пікантно: недомовленість і метафори між рядків. Естетично, не вульгарно.
+- Тост: коротка історія з несподіваним фіналом або думка для роздумів.
 
-Правило: пиши ЛИШЕ готовий текст. Без пояснень і коментарів. Якщо стиль подачі не вказано — пиши розмовно і природно, як жива людина, а не як письменник. Довжина — 2-4 речення для повідомлення, 5-7 для листа чи посту. Останнє речення ЗАВЖДИ завершуй крапкою або знаком оклику. Ніколи не обривай на півслові. Мова: українська.`;
+Якщо стиль подачі не вказано — пиши розмовно і природно, як жива людина, а не як письменник.
+Правило: пиши ЛИШЕ готовий текст. Без пояснень і коментарів. 2-4 речення для повідомлення, 5-7 для листа чи посту. Останнє речення ЗАВЖДИ завершуй крапкою або знаком оклику. Мова: українська.`;
 
 let genre = '';
-
-let writer = '';
-
 let textStyle = '';
-
-function pickStyle(el) {
-  if (el.classList.contains('on')) {
-    el.classList.remove('on');
-    textStyle = '';
-  } else {
-    document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-    textStyle = el.dataset.s;
-  }
-}
-
-
-function pickWriter(el) {
-  if (el.classList.contains('on')) {
-    el.classList.remove('on');
-    writer = '';
-  } else {
-    document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-    writer = el.dataset.style;
-  }
-}
-
+let writer = '';
 let hist = JSON.parse(localStorage.getItem('gw_h') || '[]');
 
+// ── PICKS ──
 function pick(el) {
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
-  genre = el.dataset.v;
+  el.classList.add('on'); genre = el.dataset.v;
+}
+function pickStyle(el) {
+  if (el.classList.contains('on')) { el.classList.remove('on'); textStyle = ''; return; }
+  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on'); textStyle = el.dataset.s;
+}
+function pickWriter(el) {
+  if (el.classList.contains('on')) { el.classList.remove('on'); writer = ''; return; }
+  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on'); writer = el.dataset.style;
 }
 
+// ── MODAL ──
 function openModal() {
   const k = localStorage.getItem('gw_key');
   if (k) document.getElementById('keyInput').value = k;
   document.getElementById('modal').style.display = 'flex';
   setTimeout(() => document.getElementById('keyInput').focus(), 80);
 }
-
 function closeModal() { document.getElementById('modal').style.display = 'none'; }
 function overlayClick(e) { if (e.target.id === 'modal') closeModal(); }
-
 function saveKey() {
   const v = document.getElementById('keyInput').value.trim();
   if (!v) return;
@@ -589,6 +502,81 @@ function saveKey() {
   closeModal();
 }
 
+// ── HOLIDAYS ──
+function getEaster(year) {
+  const a = year%19, b = Math.floor(year/100), c = year%100;
+  const d = Math.floor(b/4), e = b%4, f = Math.floor((b+8)/25);
+  const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15)%30;
+  const i = Math.floor(c/4), k = c%4, l = (32+2*e+2*i-h-k)%7;
+  const m = Math.floor((a+11*h+22*l)/451);
+  const month = Math.floor((h+l-7*m+114)/31);
+  const day = ((h+l-7*m+114)%31)+1;
+  return { month, day };
+}
+
+function getUkrHolidays(year) {
+  const easter = getEaster(year);
+  const easterDate = new Date(year, easter.month-1, easter.day);
+  const trinity = new Date(easterDate); trinity.setDate(trinity.getDate()+49);
+  return [
+    {m:1,d:1,name:'Новий рік',icon:'🎆'},
+    {m:1,d:7,name:'Різдво (юліан.)',icon:'⛪'},
+    {m:1,d:19,name:'Водохреще',icon:'💧'},
+    {m:3,d:8,name:'Жіночий день',icon:'💐'},
+    {m:5,d:1,name:'День праці',icon:'⚒️'},
+    {m:5,d:9,name:'День перемоги над нацизмом',icon:'🕊️'},
+    {m:6,d:28,name:'День Конституції',icon:'📜'},
+    {m:7,d:28,name:'День Державності',icon:'🏛️'},
+    {m:8,d:19,name:'Яблучний Спас',icon:'🍎'},
+    {m:8,d:24,name:'День Незалежності України',icon:'🇺🇦'},
+    {m:10,d:14,name:'День захисників / Покрова',icon:'🛡️'},
+    {m:12,d:25,name:'Різдво Христове',icon:'🎄'},
+    {m:easter.month,d:easter.day,name:'Великдень',icon:'🐣'},
+    {m:trinity.getMonth()+1,d:trinity.getDate(),name:'Трійця',icon:'🌿'},
+  ];
+}
+
+function getTodayHoliday() {
+  const now = new Date();
+  return getUkrHolidays(now.getFullYear()).find(h => h.m===now.getMonth()+1 && h.d===now.getDate()) || null;
+}
+
+function getTimeOfDay() {
+  const h = new Date().getHours();
+  if (h>=5 && h<12) return {label:'Доброго ранку', icon:'🌅', val:'ранок'};
+  if (h>=12 && h<17) return {label:'Доброго дня', icon:'☀️', val:'день'};
+  if (h>=17 && h<22) return {label:'Доброго вечора', icon:'🌆', val:'вечір'};
+  return {label:'Доброї ночі', icon:'🌙', val:'ніч'};
+}
+
+function initQuickChips() {
+  const tod = getTimeOfDay();
+  const holiday = getTodayHoliday();
+  const wrap = document.getElementById('quickChips');
+  if (!wrap) return;
+
+  const tc = document.createElement('span');
+  tc.className = 'qchip';
+  tc.innerHTML = tod.icon + ' ' + tod.label;
+  tc.onclick = () => {
+    document.getElementById('occasion').value = tod.label;
+    document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+  wrap.appendChild(tc);
+
+  if (holiday) {
+    const hc = document.createElement('span');
+    hc.className = 'qchip holiday';
+    hc.innerHTML = holiday.icon + ' ' + holiday.name;
+    hc.onclick = () => {
+      document.getElementById('occasion').value = holiday.name;
+      document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
+    };
+    wrap.appendChild(hc);
+  }
+}
+
+// ── GENERATE ──
 async function generate() {
   const key = localStorage.getItem('gw_key');
   if (!key) { openModal(); return; }
@@ -597,8 +585,10 @@ async function generate() {
   const rec = document.getElementById('recipient').value.trim();
   const fmt = document.getElementById('format').value;
   const det = document.getElementById('details').value.trim();
-
   const tod = getTimeOfDay();
+
+  const greetingOccasions = ['Доброго ранку','Доброго дня','Доброго вечора','Доброї ночі'];
+
   const parts = [
     occ && `Привід: ${occ}`,
     rec && `Адресат: ${rec}`,
@@ -606,7 +596,7 @@ async function generate() {
     genre && `Жанр: ${genre}`,
     textStyle && `Стиль подачі: ${textStyle}`,
     writer && `Стиль написання: пиши в стилі ${writer}`,
-    occ && ['Доброго ранку','Доброго дня','Доброго вечора','Доброї ночі'].includes(occ) && `Використай привітання: ${tod.label}`,
+    occ && greetingOccasions.includes(occ) && `Використай привітання: ${tod.label}`,
     det && `Деталі: ${det}`,
   ].filter(Boolean);
 
@@ -614,7 +604,7 @@ async function generate() {
 
   const btn = document.getElementById('genBtn');
   btn.disabled = true;
-  btn.innerHTML = '<div style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></div>&nbsp; Пишу...';
+  btn.innerHTML = '<div style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></div>&nbsp;Пишу...';
 
   document.getElementById('resultArea').innerHTML = `
     <div class="loading-card">
@@ -639,25 +629,22 @@ async function generate() {
       })
     });
 
-    if (!res.ok) {
-      const e = await res.json();
-      throw new Error(e.error?.message || `HTTP ${res.status}`);
-    }
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `HTTP ${res.status}`); }
 
     const data = await res.json();
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) throw new Error('Порожня відповідь від API');
+
     const finishReason = data.candidates?.[0]?.finishReason;
     if (finishReason === 'MAX_TOKENS') {
       const lastDot = Math.max(text.lastIndexOf('.'), text.lastIndexOf('!'), text.lastIndexOf('?'));
       if (lastDot > text.length * 0.5) text = text.slice(0, lastDot + 1);
     }
+
     const entry = {
-      id: Date.now(), text,
-      occ, rec, fmt, genre, det,
+      id: Date.now(), text, occ, rec, fmt, genre, det,
       date: new Date().toLocaleDateString('uk-UA', {day:'numeric', month:'short'})
     };
-
     hist.unshift(entry);
     if (hist.length > 40) hist.pop();
     localStorage.setItem('gw_h', JSON.stringify(hist));
@@ -676,6 +663,7 @@ async function generate() {
   }
 }
 
+// ── SHOW RESULT ──
 function showResult(e) {
   const tags = [
     e.occ && `<span class="rtag">${H(e.occ)}</span>`,
@@ -690,20 +678,26 @@ function showResult(e) {
         <span style="font-size:12px;color:var(--text3)">${e.date}</span>
       </div>
       <div class="rbody">
-        <div class="rtext" id="rt${e.id}">${H(e.text)}</div>
+        <textarea class="edit-area" id="rt${e.id}">${H(e.text)}</textarea>
+        <div class="edit-hint">✏️ Натисни щоб редагувати</div>
+        <div class="refine-row">
+          <input class="refine-input" id="ri${e.id}" autocomplete="off" data-lpignore="true"
+            placeholder="Зроби коротше / додай гумору / більш пікантно..." />
+          <button class="refine-btn" id="rb${e.id}" onclick="refine(${e.id})">↻ Переписати</button>
+        </div>
       </div>
       <div class="rfoot">
-        <button class="gbtn" id="cp${e.id}" onclick="copyEdit(${e.id})">📋 Копіювати</button>
+        <button class="gbtn" id="cp${e.id}" onclick="copyResult(${e.id})">📋 Копіювати</button>
         <button class="gbtn" onclick="rerun(${e.id})">↺ Ще раз</button>
       </div>
     </div>`;
 }
 
-function copyEdit(id) {
+// ── COPY ──
+function copyResult(id) {
   const el = document.getElementById('rt'+id);
   if (!el) return;
-  const text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(el.value || el.textContent).then(() => {
     const btn = document.getElementById('cp'+id);
     btn.textContent = '✓ Скопійовано';
     btn.classList.add('ok');
@@ -711,48 +705,41 @@ function copyEdit(id) {
   });
 }
 
+// ── REFINE ──
 async function refine(id) {
   const key = localStorage.getItem('gw_key');
   if (!key) { openModal(); return; }
   const ta = document.getElementById('rt'+id);
-  const inp = document.getElementById('refineInput'+id);
-  const btn = document.getElementById('refineBtn'+id);
+  const inp = document.getElementById('ri'+id);
+  const btn = document.getElementById('rb'+id);
   if (!ta || !inp || !inp.value.trim()) return;
 
   const currentText = ta.value;
   const instruction = inp.value.trim();
 
-  btn.disabled = true;
-  btn.textContent = '...';
+  btn.disabled = true; btn.textContent = '...';
 
   try {
-    const res = await fetch(\`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=\${key}\`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text:
-          \`Ось текст:\n\n\${currentText}\n\nЗавдання: \${instruction}\n\nПерепиши текст згідно завдання. Поверни ЛИШЕ новий текст, без пояснень. Мова: українська.\`
-        }]}],
+        contents: [{ role: 'user', parts: [{ text: `Ось текст:\n\n${currentText}\n\nЗавдання: ${instruction}\n\nПерепиши текст згідно завдання. Поверни ЛИШЕ новий текст, без пояснень. Мова: українська.` }]}],
         generationConfig: { temperature: 1.0, maxOutputTokens: 1024 },
         safetySettings: [
           { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' }
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' }
         ]
       })
     });
     const data = await res.json();
     const newText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (newText) { ta.value = newText; inp.value = ''; }
-  } catch(e) {
-    console.error(e);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '↻ Переписати';
-  }
+  } catch(e) { console.error(e); }
+  finally { btn.disabled = false; btn.textContent = '↻ Переписати'; }
 }
 
+// ── RERUN ──
 async function rerun(id) {
   const e = hist.find(x => x.id === id);
   if (!e) return;
@@ -761,12 +748,13 @@ async function rerun(id) {
   document.getElementById('format').value = e.fmt;
   document.getElementById('details').value = e.det;
   document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
-  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
-  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
   genre = e.genre;
+  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
+  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
   await generate();
 }
 
+// ── HISTORY ──
 function renderHist() {
   const sec = document.getElementById('hsec');
   const grid = document.getElementById('hgrid');
@@ -792,9 +780,9 @@ function loadH(id) {
   document.getElementById('format').value = e.fmt;
   document.getElementById('details').value = e.det;
   document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.v === e.genre));
-  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
-  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
   genre = e.genre;
+  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('on')); textStyle = '';
+  document.querySelectorAll('.writer-chip').forEach(c => c.classList.remove('on')); writer = '';
   showResult(e);
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -810,95 +798,14 @@ function H(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-
-// ===== СВЯТА І ЧАС =====
-function getEaster(year) {
-  const a = year % 19, b = Math.floor(year/100), c = year % 100;
-  const d = Math.floor(b/4), e = b % 4, f = Math.floor((b+8)/25);
-  const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15) % 30;
-  const i = Math.floor(c/4), k = c % 4, l = (32+2*e+2*i-h-k) % 7;
-  const m = Math.floor((a+11*h+22*l)/451);
-  const month = Math.floor((h+l-7*m+114)/31);
-  const day = ((h+l-7*m+114) % 31) + 1;
-  return { month, day };
+// ── INIT ──
+if (!localStorage.getItem('gw_key') && localStorage.getItem('gkey')) {
+  localStorage.setItem('gw_key', localStorage.getItem('gkey'));
 }
-
-function getUkrHolidays(year) {
-  const easter = getEaster(year);
-  const easterDate = new Date(year, easter.month-1, easter.day);
-  const trinity = new Date(easterDate); trinity.setDate(trinity.getDate()+49);
-
-  return [
-    // Державні
-    { m:1,  d:1,  name:'Новий рік', icon:'🎆', type:'state' },
-    { m:1,  d:7,  name:'Різдво Христове (за юл. кал.)', icon:'⛪', type:'church' },
-    { m:1,  d:19, name:'Водохреще', icon:'💧', type:'church' },
-    { m:3,  d:8,  name:'Міжнародний жіночий день', icon:'💐', type:'state' },
-    { m:5,  d:1,  name:'День праці', icon:'⚒️', type:'state' },
-    { m:5,  d:9,  name:'День перемоги над нацизмом', icon:'🕊️', type:'state' },
-    { m:6,  d:28, name:'День Конституції України', icon:'📜', type:'state' },
-    { m:7,  d:28, name:'День Української Державності', icon:'🏛️', type:'state' },
-    { m:8,  d:24, name:'День Незалежності України', icon:'🇺🇦', type:'state' },
-    { m:10, d:14, name:'День захисників України / Покрова', icon:'🛡️', type:'both' },
-    { m:12, d:25, name:'Різдво Христове', icon:'🎄', type:'church' },
-    // Рухомі
-    { m: easter.month, d: easter.day, name:'Великдень', icon:'🐣', type:'church' },
-    { m: trinity.getMonth()+1, d: trinity.getDate(), name:'Трійця', icon:'🌿', type:'church' },
-    // Спас — 19 серпня
-    { m:8, d:19, name:'Яблучний Спас', icon:'🍎', type:'church' },
-  ];
-}
-
-function getTodayHoliday() {
-  const now = new Date();
-  const m = now.getMonth()+1, d = now.getDate(), y = now.getFullYear();
-  return getUkrHolidays(y).find(h => h.m === m && h.d === d) || null;
-}
-
-function getTimeOfDay() {
-  const h = new Date().getHours();
-  if (h >= 5 && h < 12) return { label:'Доброго ранку', icon:'🌅', val:'ранок' };
-  if (h >= 12 && h < 17) return { label:'Доброго дня', icon:'☀️', val:'день' };
-  if (h >= 17 && h < 22) return { label:'Доброго вечора', icon:'🌆', val:'вечір' };
-  return { label:'Доброї ночі', icon:'🌙', val:'ніч' };
-}
-
-function initTimeAndHoliday() {
-  const tod = getTimeOfDay();
-  const holiday = getTodayHoliday();
-  const wrap = document.getElementById('quickChips');
-  if (!wrap) return;
-
-  // Time chip
-  const tc = document.createElement('span');
-  tc.className = 'qchip';
-  tc.innerHTML = tod.icon + ' ' + tod.label;
-  tc.onclick = () => quickGen(tod.label);
-  wrap.appendChild(tc);
-
-  // Holiday chip
-  if (holiday) {
-    const hc = document.createElement('span');
-    hc.className = 'qchip holiday';
-    hc.innerHTML = holiday.icon + ' ' + holiday.name;
-    hc.onclick = () => quickGen(holiday.name);
-    wrap.appendChild(hc);
-  }
-}
-
-function quickGen(occasionName) {
-  document.getElementById('occasion').value = occasionName;
-  document.querySelector('.card').scrollIntoView({behavior:'smooth', block:'start'});
-}
-// ===== КІНЕЦЬ СВЯТ =====
-
-// Автоматично підхопити ключ від spiker
-if (!localStorage.getItem("gw_key") && localStorage.getItem("gkey")) {
-  localStorage.setItem("gw_key", localStorage.getItem("gkey"));
-}
+initQuickChips();
 renderHist();
+if (hist.length > 0) { showResult(hist[0]); }
 if (!localStorage.getItem('gw_key')) setTimeout(openModal, 700);
-initTimeAndHoliday();
 </script>
 </body>
 </html>
