@@ -173,17 +173,18 @@ textarea:focus { background: #fff; box-shadow: 0 0 0 3px rgba(0,113,227,.2); }
 .rtag { font-size: 12px; font-weight: 500; background: var(--off); color: var(--text2); padding: 4px 10px; border-radius: 6px; }
 .rbody { padding: 28px 30px; }
 .edit-area {
-  width: 100%; min-height: 60px;
+  width: 100%; min-height: 60px; height: auto; overflow: hidden;
   font-family: 'Playfair Display', serif;
   font-size: 19px; line-height: 1.72; color: var(--text);
   letter-spacing: -0.2px; white-space: pre-wrap;
   border: 1px dashed transparent; border-radius: 8px;
   outline: none; background: transparent;
   resize: none; padding: 4px; cursor: text;
-  transition: border-color .2s;
+  transition: border-color .2s, background .2s;
+  field-sizing: content;
 }
 .edit-area:focus { border-color: var(--mid); background: var(--off); }
-.edit-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
+.edit-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; cursor: pointer; }
 .refine-row {
   display: flex; gap: 8px; margin-top: 14px;
   border-top: 1px solid var(--off); padding-top: 14px;
@@ -651,6 +652,7 @@ async function generate() {
 
     showResult(entry);
     renderHist();
+    setTimeout(() => { const ta = document.querySelector('.edit-area'); if(ta) autoResize(ta); }, 50);
 
   } catch(e) {
     document.getElementById('resultArea').innerHTML = `
@@ -678,8 +680,8 @@ function showResult(e) {
         <span style="font-size:12px;color:var(--text3)">${e.date}</span>
       </div>
       <div class="rbody">
-        <textarea class="edit-area" id="rt${e.id}">${H(e.text)}</textarea>
-        <div class="edit-hint">✏️ Натисни щоб редагувати</div>
+        <textarea class="edit-area" id="rt${e.id}" oninput="autoResize(this)">${H(e.text)}</textarea>
+        <div class="edit-hint" onclick="document.getElementById('rt${e.id}').focus()">✏️ Натисни щоб редагувати</div>
         <div class="refine-row">
           <input class="refine-input" id="ri${e.id}" autocomplete="off" data-lpignore="true"
             placeholder="Зроби коротше / додай гумору / більш пікантно..." />
@@ -797,6 +799,14 @@ function delH(ev, id) {
 function H(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+// Call autoResize after result renders
+const _origShowResult = showResult;
 
 // ── INIT ──
 if (!localStorage.getItem('gw_key') && localStorage.getItem('gkey')) {
